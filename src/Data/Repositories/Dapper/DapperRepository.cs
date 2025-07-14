@@ -1,0 +1,81 @@
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace POS.Data.Repositories.Dapper
+{
+    public class DapperRepository : IDapperRepository
+    {
+        private readonly string _connectionString;
+
+        public DapperRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public async Task<int> ExecuteScalarAsync(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text)
+        {
+            using (var con = new SqlConnection(_connectionString))
+            {
+                var dynamicParameters = ConvertToDynamicParameters(parameters);
+                var res = await con.ExecuteScalarAsync(query, dynamicParameters, commandType: commandType);
+                int result = (int)res;
+                return result;
+            }
+        }
+
+        public async Task<int> ExecuteAsync(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text)
+        {
+            using (var con = new SqlConnection(_connectionString))
+            {
+                var dynamicParameters = ConvertToDynamicParameters(parameters);
+                int rows = await con.ExecuteAsync(query, dynamicParameters, commandType: commandType);
+                return rows;
+            }
+        }
+
+        public async Task<List<T>> QueryAsync<T>(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text) where T : class
+        {
+            using (var con = new SqlConnection(_connectionString))
+            {
+                var dynamicParameters = ConvertToDynamicParameters(parameters);
+                var result = (await con.QueryAsync<T>(query, dynamicParameters, commandType: commandType)).ToList();
+                return result;
+            }
+        }
+
+        public async Task<T> QueryFirstOrDefaultAsync<T>(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text) where T : class
+        {
+            using (var con = new SqlConnection(_connectionString))
+            {
+                var dynamicParameters = ConvertToDynamicParameters(parameters);
+                var result = await con.QueryFirstOrDefaultAsync<T>(query, dynamicParameters, commandType: commandType);
+                return result;
+            }
+        }
+
+        public async Task<T> QuerySingleOrDefaultAsync<T>(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text) where T : class
+        {
+            using (var con = new SqlConnection(_connectionString))
+            {
+                var dynamicParameters = ConvertToDynamicParameters(parameters);
+                var result = await con.QuerySingleOrDefaultAsync<T>(query, dynamicParameters, commandType: commandType);
+                return result;
+            }
+        }
+
+        private DynamicParameters ConvertToDynamicParameters(Dictionary<string, object> parameters)
+        {
+            //null coalscing operator
+            parameters = parameters ?? new Dictionary<string, object>();
+
+            var result = new DynamicParameters(parameters);
+            return result;
+        }
+    }
+}

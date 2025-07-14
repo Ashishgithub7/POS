@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POS.Data.Entities.Login;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace POS.Data.Repositories.Login
 {
     public interface ILoginRepository
     {
-        Task<bool> LoginAsync(string userName, string password);
+        Task<AppUser> LoginAsync(string userName, string password);
     }
 }
