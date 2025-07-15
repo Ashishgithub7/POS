@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using POS.Data.Entities.Inventory;
 using POS.Data.Entities.Login;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace POS.Data.Data
 {
     internal class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, int>
     {
+        public DbSet<Category> Categories { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }

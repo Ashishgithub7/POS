@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace POS.Data.Configuration
+namespace POS.Data.Configurations.Login
 {
     internal class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
     {
