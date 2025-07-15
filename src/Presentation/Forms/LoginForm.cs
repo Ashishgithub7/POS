@@ -1,4 +1,5 @@
-﻿using POS.Business.Services.Login;
+﻿using Microsoft.Extensions.DependencyInjection;
+using POS.Business.Services.Login;
 using POS.Common.DTO.Login;
 using POS.Desktop.Utilities;
 using POS.Presentation;
@@ -12,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace POS.Desktop
+namespace POS.Desktop.Forms
 {
     public partial class LoginForm : Form
     {
@@ -47,7 +48,7 @@ namespace POS.Desktop
             txtUserName.Focus();
         }
 
-        private async void btnLogin_ClickAsync(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             string userName = txtUserName.Text.Trim();
             string password = txtPassword.Text.Trim();
@@ -60,9 +61,8 @@ namespace POS.Desktop
             var result = await _loginService.LoginAsync(request);
             if (result.Status == Common.Enums.Status.Success)
             {
-                //StudentForm studentForm = Program.ServiceProvider.GetService<StudentForm>();
-                //studentForm.SetUserName(userName);
-                //studentForm.Show();
+                var mainForm = Program.ServiceProvider.GetService<MainForm>();
+                mainForm.Show();
                 Hide();
             }
             else

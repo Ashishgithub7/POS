@@ -1,4 +1,4 @@
-﻿namespace POS.Desktop
+﻿namespace POS.Desktop.Forms
 {
     partial class LoginForm
     {
@@ -79,7 +79,7 @@
             btnLogin.TabIndex = 2;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = true;
-            btnLogin.Click += btnLogin_ClickAsync;
+            btnLogin.Click += btnLogin_Click;
             // 
             // btnCancel
             // 

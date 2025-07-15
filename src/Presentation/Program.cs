@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using POS.Business;
 using POS.Data;
 using POS.Desktop;
+using POS.Desktop.Forms;
 
 namespace POS.Presentation
 {
