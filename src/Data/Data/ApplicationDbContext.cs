@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace POS.Data.Data
 {
-    internal class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, int>
+    public class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, int>
     {
         public DbSet<Category> Categories { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
