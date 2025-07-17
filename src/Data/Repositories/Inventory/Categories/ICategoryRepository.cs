@@ -11,7 +11,7 @@ namespace POS.Data.Repositories.Inventory.Categories
     {
         #region Read
         Task<List<Category>> GetAllAsync();
-        Task<Category> GetByIdAsync(int id);
+        //Task<Category> GetByIdAsync(int id);
         #endregion Read
 
         #region Write
