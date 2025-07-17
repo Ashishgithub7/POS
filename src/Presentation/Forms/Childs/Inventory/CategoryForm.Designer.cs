@@ -31,15 +31,15 @@
             lblCategoryHdr = new Label();
             exitBtn = new Button();
             lblName = new Label();
-            NameTxtBox = new TextBox();
+            txtCategoryName = new TextBox();
             btnSave = new Button();
             btnUpdate = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
             lblSearch = new Label();
             SearchTxtBox = new TextBox();
-            grdView = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)grdView).BeginInit();
+            dgvCategory = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvCategory).BeginInit();
             SuspendLayout();
             // 
             // lblCategoryHdr
@@ -71,12 +71,12 @@
             lblName.TabIndex = 2;
             lblName.Text = "Name:";
             // 
-            // NameTxtBox
+            // txtCategoryName
             // 
-            NameTxtBox.Location = new Point(65, 54);
-            NameTxtBox.Name = "NameTxtBox";
-            NameTxtBox.Size = new Size(156, 23);
-            NameTxtBox.TabIndex = 3;
+            txtCategoryName.Location = new Point(65, 54);
+            txtCategoryName.Name = "txtCategoryName";
+            txtCategoryName.Size = new Size(156, 23);
+            txtCategoryName.TabIndex = 3;
             // 
             // btnSave
             // 
@@ -86,6 +86,7 @@
             btnSave.TabIndex = 4;
             btnSave.Text = "Save (F2)";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnUpdate
             // 
@@ -122,7 +123,6 @@
             lblSearch.Size = new Size(45, 15);
             lblSearch.TabIndex = 8;
             lblSearch.Text = "Search:";
-            lblSearch.Click += SearchLbl_Click;
             // 
             // SearchTxtBox
             // 
@@ -132,33 +132,35 @@
             SearchTxtBox.TabIndex = 9;
             SearchTxtBox.TextChanged += SearchTxtBox_TextChanged;
             // 
-            // grdView
+            // dgvCategory
             // 
-            grdView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            grdView.Location = new Point(17, 183);
-            grdView.Name = "grdView";
-            grdView.Size = new Size(771, 255);
-            grdView.TabIndex = 10;
+            dgvCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCategory.Location = new Point(17, 183);
+            dgvCategory.Name = "dgvCategory";
+            dgvCategory.Size = new Size(771, 255);
+            dgvCategory.TabIndex = 10;
+            dgvCategory.CellContentClick += grdView_CellContentClick;
             // 
             // CategoryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(grdView);
+            Controls.Add(dgvCategory);
             Controls.Add(SearchTxtBox);
             Controls.Add(lblSearch);
             Controls.Add(btnCancel);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnSave);
-            Controls.Add(NameTxtBox);
+            Controls.Add(txtCategoryName);
             Controls.Add(lblName);
             Controls.Add(exitBtn);
             Controls.Add(lblCategoryHdr);
             Name = "CategoryForm";
             Text = "CategoryForm";
-            ((System.ComponentModel.ISupportInitialize)grdView).EndInit();
+            Load += CategoryForm_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvCategory).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -168,13 +170,13 @@
         private Label lblCategoryHdr;
         private Button exitBtn;
         private Label lblName;
-        private TextBox NameTxtBox;
+        private TextBox txtCategoryName;
         private Button btnSave;
         private Button btnUpdate;
         private Button btnDelete;
         private Button btnCancel;
         private Label lblSearch;
         private TextBox SearchTxtBox;
-        private DataGridView grdView;
+        private DataGridView dgvCategory;
     }
 }
