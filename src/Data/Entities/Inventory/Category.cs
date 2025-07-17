@@ -1,4 +1,5 @@
 ﻿using POS.Data.Entities.Common;
+using POS.Data.Entities.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,8 @@ namespace POS.Data.Entities.Inventory
     public class Category : BaseEntity
     {
         public string Name { get; set; }
+
+        public AppUser CreatedByUser { get; set; }
+        public AppUser UpdatedByUser { get; set; }
     }
 }

@@ -25,6 +25,8 @@ namespace POS.Data.Repositories.Inventory.Categories
         {
             var records = await _context
                                  .Categories
+                                 .Include(x => x.CreatedByUser)
+                                 .Include(x => x.UpdatedByUser)
                                  .AsNoTracking() // Use AsNoTracking for read-only queries
                                  .ToListAsync();
             return records;
@@ -39,6 +41,7 @@ namespace POS.Data.Repositories.Inventory.Categories
 
             return record;
         }
+
         #endregion Read
 
         #region Write

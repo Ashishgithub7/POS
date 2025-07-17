@@ -25,6 +25,21 @@ namespace POS.Data.Configurations.Inventory
             builder
             .Property(x => x.CreatedDate)
             .HasDefaultValueSql("GETDATE()");
+
+            builder
+            .HasOne(x => x.CreatedByUser)
+            .WithMany(x => x.CreatedCategories)
+            .HasForeignKey(x => x.CreatedBy)
+            .OnDelete(DeleteBehavior.Restrict);  
+            
+            builder
+            .HasOne(x => x.UpdatedByUser)
+            .WithMany(x => x.UpdatedCategories)
+            .HasForeignKey(x => x.LastModifiedBy)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
+
         }
     }
 }

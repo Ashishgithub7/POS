@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using POS.Data.Data;
 using POS.Data.Entities.Login;
+using POS.Data.Repositories.Inventory.Categories;
 using POS.Data.Repositories.Login;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace POS.Data
                 .AddDefaultTokenProviders();
 
             services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
         }
     }
 }
