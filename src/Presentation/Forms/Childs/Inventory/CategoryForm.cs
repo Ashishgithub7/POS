@@ -1,4 +1,6 @@
-﻿using POS.Business.Services.Inventory.Categories;
+﻿using Microsoft.VisualBasic;
+using POS.Business.Services.Inventory.Categories;
+using POS.Common.Constants;
 using POS.Common.DTO.Inventory.Categories;
 using POS.Common.Enums;
 using POS.Desktop.Utilities;
@@ -19,6 +21,8 @@ namespace POS.Desktop.Forms.Childs.Inventory
     {
         private readonly ICategoryService _categoryService;
         private List<CategoryReadDto> _categories = new List<CategoryReadDto>();
+
+        private int _userId;
         public CategoryForm(ICategoryService categoryService)
         {
             InitializeComponent();
@@ -28,19 +32,20 @@ namespace POS.Desktop.Forms.Childs.Inventory
 
         private void InitializeFormComponents()
         {
+            this.AcceptButton = btnSave;
             txtCategoryName.TabIndex = 0;
             btnSave.TabIndex = 1;
             btnUpdate.TabIndex = 2;
             btnDelete.TabIndex = 3;
         }
 
-        private async Task btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             string name = txtCategoryName.Text.Trim();
             var request = new CategoryCreateDto
             {
                 Name = name,
-                CreatedBy = 0
+                CreatedBy = _userId
             };
             var result = await _categoryService.SaveAsync(request);
             if (result.Status == Status.Success)
@@ -48,9 +53,9 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 ResetControls();
                 await LoadCategoryAsync();
                 DialogBox.SuccessAlert(result.Message);
-                return;
+                
             }
-            DialogBox.FailureAlert(result);
+            else DialogBox.FailureAlert(result);
         }
 
         private void ResetControls()
@@ -71,12 +76,25 @@ namespace POS.Desktop.Forms.Childs.Inventory
 
         private async void CategoryForm_Load(object sender, EventArgs e)
         {
+            if (MdiParent is MainForm mainForm) 
+            {
+                _userId = mainForm.LoggedInUserId;
+            }
             await LoadCategoryGridAsync();
         }
 
         private async Task LoadCategoryGridAsync()
         {
             dgvCategory.AutoGenerateColumns = false;
+            dgvCategory.ReadOnly = true;
+            dgvCategory.RowHeadersVisible = false;
+
+            dgvCategory.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = Others.Sn,
+                HeaderText = "S.N",
+
+            });
             dgvCategory.Columns.Add(new DataGridViewColumn
             {
                 Name = nameof(CategoryReadDto.Id),
@@ -90,6 +108,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 HeaderText = "Name",
                 CellTemplate = new DataGridViewTextBoxCell(),
                 DataPropertyName = nameof(CategoryReadDto.Name),
+                Width = 200
             });
             dgvCategory.Columns.Add(new DataGridViewColumn
             {
@@ -111,6 +130,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 HeaderText = "Last Modified By",
                 CellTemplate = new DataGridViewTextBoxCell(),
                 DataPropertyName = nameof(CategoryReadDto.LastModifiedBy),
+                Width = 200
             });
             dgvCategory.Columns.Add(new DataGridViewColumn
             {
@@ -118,8 +138,18 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 HeaderText = "Last Modified Date",
                 CellTemplate = new DataGridViewTextBoxCell(),
                 DataPropertyName = nameof(CategoryReadDto.LastModifiedDate),
+                Width = 200
+
             });
             await LoadCategoryAsync();
+        }
+
+        private void UpdateSerialNumbers() 
+        {
+            for (int i = 0; i < dgvCategory.Rows.Count; i++) 
+            {
+                dgvCategory.Rows[i].Cells[Others.Sn].Value = i + 1;
+            }
         }
         private async Task LoadCategoryAsync()
         {
@@ -131,6 +161,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 if (_categories.Count > 0)
                 {
                     dgvCategory.DataSource = _categories;
+                    UpdateSerialNumbers();
                 }
             }
         }

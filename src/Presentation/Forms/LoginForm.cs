@@ -62,6 +62,7 @@ namespace POS.Desktop.Forms
             if (result.Status == Common.Enums.Status.Success)
             {
                 var mainForm = Program.ServiceProvider.GetService<MainForm>();
+                mainForm.LoggedInUserId = result.Data.Id;
                 mainForm.Show();
                 Hide();
             }

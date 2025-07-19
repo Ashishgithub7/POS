@@ -15,6 +15,7 @@ namespace POS.Desktop.Forms
 {
     public partial class MainForm : Form
     {
+        public int LoggedInUserId;
 
         public MainForm()
         {

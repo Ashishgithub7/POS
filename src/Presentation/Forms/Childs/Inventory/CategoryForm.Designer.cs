@@ -46,7 +46,7 @@
             // 
             lblCategoryHdr.Anchor = AnchorStyles.Top;
             lblCategoryHdr.AutoSize = true;
-            lblCategoryHdr.Location = new Point(366, 20);
+            lblCategoryHdr.Location = new Point(479, 20);
             lblCategoryHdr.Name = "lblCategoryHdr";
             lblCategoryHdr.Size = new Size(129, 15);
             lblCategoryHdr.TabIndex = 0;
@@ -55,7 +55,7 @@
             // exitBtn
             // 
             exitBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            exitBtn.Location = new Point(713, 20);
+            exitBtn.Location = new Point(940, 20);
             exitBtn.Name = "exitBtn";
             exitBtn.Size = new Size(75, 23);
             exitBtn.TabIndex = 1;
@@ -137,7 +137,7 @@
             dgvCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCategory.Location = new Point(17, 183);
             dgvCategory.Name = "dgvCategory";
-            dgvCategory.Size = new Size(771, 255);
+            dgvCategory.Size = new Size(897, 255);
             dgvCategory.TabIndex = 10;
             dgvCategory.CellContentClick += grdView_CellContentClick;
             // 
@@ -145,7 +145,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1027, 530);
             Controls.Add(dgvCategory);
             Controls.Add(SearchTxtBox);
             Controls.Add(lblSearch);

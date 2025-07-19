@@ -9,5 +9,6 @@ namespace POS.Common.Constants
     public class Others
     {
         public const string Format = "dd/MM/yy";
+        public const string Sn = "Sn";
     }
 }

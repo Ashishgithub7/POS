@@ -28,6 +28,7 @@ namespace POS.Data.Repositories.Inventory.Categories
                                  .Include(x => x.CreatedByUser)
                                  .Include(x => x.UpdatedByUser)
                                  .AsNoTracking() // Use AsNoTracking for read-only queries
+                                 .OrderByDescending(x => x.CreatedDate)
                                  .ToListAsync();
             return records;
         }

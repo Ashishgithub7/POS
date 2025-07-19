@@ -21,9 +21,11 @@ namespace POS.Business.Services.Inventory.Categories
         private readonly IValidator<CategoryUpdateDto> _categoryUpdateDtoValidator;
         private const string _module = "Category";
 
-        public CategoryService(ICategoryRepository categoryRepository)
+        public CategoryService(ICategoryRepository categoryRepository, IValidator<CategoryCreateDto> categoryCreateDtoValidator, IValidator<CategoryUpdateDto> categoryUpdateDtoValidator)
         {
             _categoryRepository = categoryRepository;
+            _categoryCreateDtoValidator = categoryCreateDtoValidator;
+            _categoryUpdateDtoValidator = categoryUpdateDtoValidator;
         }
         #region Read
         public async Task<OutputDto<List<CategoryReadDto>>> GetAllAsync()
@@ -37,8 +39,8 @@ namespace POS.Business.Services.Inventory.Categories
                     Name = x.Name,
                     CreatedBy = x.CreatedByUser.UserName,
                     CreatedDate = x.CreatedDate.FormatDate(),
-                    LastModifiedBy = x.UpdatedByUser.UserName,
-                    LastModifiedDate = x.LastModifiedDate.FormatDate()
+                    LastModifiedBy = x.UpdatedByUser?.UserName,
+                    LastModifiedDate = x.LastModifiedDate?.FormatDate()
                 }).ToList();
 
                 return OutputDtoConverter.SetSuccess(result);
