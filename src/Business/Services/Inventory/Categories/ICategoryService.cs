@@ -14,7 +14,7 @@ namespace POS.Business.Services.Inventory.Categories
         #region Read
 
         Task<OutputDto<List<CategoryReadDto>>> GetAllAsync();
-        //Task<OutputDto<CategoryReadDto>> GetByIdAsync(int id);
+        Task<OutputDto<CategoryReadDto>> GetByIdAsync(int id);
 
         #endregion Read
 

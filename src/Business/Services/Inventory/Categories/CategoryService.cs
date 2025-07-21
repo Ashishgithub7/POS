@@ -32,7 +32,7 @@ namespace POS.Business.Services.Inventory.Categories
         {
             try
             {
-                var records = await _categoryRepository.GetAllAsync();
+                var records = await _categoryRepository.GetAsync();
                 var result = records.Select(x => new CategoryReadDto
                 {
                     Id = x.Id,
@@ -51,6 +51,30 @@ namespace POS.Business.Services.Inventory.Categories
             }
 
 
+        }
+
+        public async Task<OutputDto<CategoryReadDto>> GetByIdAsync(int id)
+        {
+            try
+            {
+                var records = await _categoryRepository.GetAsync((x => x.Id == id));
+                var result = records
+                             .Select(x => new CategoryReadDto
+                             {
+                                 Id = x.Id,
+                                 Name = x.Name,
+                                 CreatedBy = x.CreatedByUser.UserName,
+                                 CreatedDate = x.CreatedDate.FormatDate(),
+                                 LastModifiedBy = x.UpdatedByUser?.UserName,
+                                 LastModifiedDate = x.LastModifiedDate?.FormatDate()
+                             }).FirstOrDefault();
+
+                return OutputDtoConverter.SetSuccess(result);
+            }
+            catch (Exception ex)
+            {
+                return OutputDtoConverter.SetFailed<CategoryReadDto>(ex.Message, null);
+            }
         }
 
         #endregion Read
@@ -124,5 +148,7 @@ namespace POS.Business.Services.Inventory.Categories
 
             #endregion Write
         }
+
+       
     }
 }

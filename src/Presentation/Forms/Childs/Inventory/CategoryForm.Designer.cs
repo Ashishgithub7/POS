@@ -96,6 +96,7 @@
             btnUpdate.TabIndex = 5;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
@@ -105,6 +106,7 @@
             btnDelete.TabIndex = 6;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnCancel
             // 
@@ -114,6 +116,7 @@
             btnCancel.TabIndex = 7;
             btnCancel.Text = "Cancel (F3)";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // lblSearch
             // 
@@ -140,6 +143,7 @@
             dgvCategory.Size = new Size(897, 255);
             dgvCategory.TabIndex = 10;
             dgvCategory.CellContentClick += grdView_CellContentClick;
+            dgvCategory.CellDoubleClick += dgvCategory_CellDoubleClick;
             // 
             // CategoryForm
             // 

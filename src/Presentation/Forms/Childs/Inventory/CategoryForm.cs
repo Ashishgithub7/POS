@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using POS.Business.Services.Inventory.Categories;
 using POS.Common.Constants;
+using POS.Common.DTO.Common;
 using POS.Common.DTO.Inventory.Categories;
 using POS.Common.Enums;
 using POS.Desktop.Utilities;
@@ -11,6 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +25,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
         private List<CategoryReadDto> _categories = new List<CategoryReadDto>();
 
         private int _userId;
+        private int _id;
         public CategoryForm(ICategoryService categoryService)
         {
             InitializeComponent();
@@ -41,25 +44,68 @@ namespace POS.Desktop.Forms.Childs.Inventory
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
+            await UpsertAsync();
+        }
+        private async Task UpsertAsync(bool isUpdate = false) 
+        {
             string name = txtCategoryName.Text.Trim();
-            var request = new CategoryCreateDto
+            OutputDto result;
+            if (isUpdate) 
             {
-                Name = name,
-                CreatedBy = _userId
-            };
-            var result = await _categoryService.SaveAsync(request);
+                var request = new CategoryUpdateDto
+                {
+                    Id = _id,
+                    Name = name,
+                    CreatedBy = _userId
+                };
+                result = await _categoryService.UpdateAsync(request);
+            }
+            else
+            {
+                var request = new CategoryCreateDto
+                {
+                    Name = name,
+                    CreatedBy = _userId
+                };
+                result = await _categoryService.SaveAsync(request);
+            }
+
+            await OnSuccessAsync(result);
+
+        }
+        private async void btnUpdate_Click(object sender, EventArgs e)
+        {
+            await UpsertAsync(true);
+            btnSave.Enabled = true;
+            
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            btnSave.Enabled = true;
+            var result = await _categoryService.DeleteAsync(_id);
+
             if (result.Status == Status.Success)
             {
-                ResetControls();
                 await LoadCategoryAsync();
                 DialogBox.SuccessAlert(result.Message);
-                
+                ResetControls();
             }
-            else DialogBox.FailureAlert(result);
+            else
+            {
+                DialogBox.FailureAlert(result);
+            }
+            ResetControls();    
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            ResetControls();
         }
 
         private void ResetControls()
         {
+            _id = 0;
             txtCategoryName.Clear();
             txtCategoryName.Focus();
         }
@@ -76,7 +122,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
 
         private async void CategoryForm_Load(object sender, EventArgs e)
         {
-            if (MdiParent is MainForm mainForm) 
+            if (MdiParent is MainForm mainForm)
             {
                 _userId = mainForm.LoggedInUserId;
             }
@@ -144,9 +190,9 @@ namespace POS.Desktop.Forms.Childs.Inventory
             await LoadCategoryAsync();
         }
 
-        private void UpdateSerialNumbers() 
+        private void UpdateSerialNumbers()
         {
-            for (int i = 0; i < dgvCategory.Rows.Count; i++) 
+            for (int i = 0; i < dgvCategory.Rows.Count; i++)
             {
                 dgvCategory.Rows[i].Cells[Others.Sn].Value = i + 1;
             }
@@ -166,6 +212,42 @@ namespace POS.Desktop.Forms.Childs.Inventory
             }
         }
 
-      
+        private async void dgvCategory_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnSave.Enabled = false;
+            _id = (int)dgvCategory.Rows[e.RowIndex].Cells[nameof(CategoryReadDto.Id)].Value;
+            if (_id > 0)
+            {
+                var result = await _categoryService.GetByIdAsync(_id);
+                if (result.Status == Status.Success)
+                {
+                    txtCategoryName.Text = result.Data.Name;
+                }
+                else
+                {
+                    DialogBox.FailureAlert(result);
+                }
+            }
+
+
+        }
+
+       
+
+        private async Task OnSuccessAsync(Common.DTO.Common.OutputDto result)
+        {
+            if (result.Status == Status.Success)
+            {
+                await LoadCategoryAsync();
+                DialogBox.SuccessAlert(result.Message);
+
+            }
+            else DialogBox.FailureAlert(result);
+
+            ResetControls();
+
+        }
+
+
     }
 }

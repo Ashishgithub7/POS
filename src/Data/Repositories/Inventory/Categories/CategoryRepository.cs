@@ -5,6 +5,7 @@ using POS.Data.Entities.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,16 +22,31 @@ namespace POS.Data.Repositories.Inventory.Categories
 
         #region Read
 
-        public async Task<List<Category>> GetAllAsync()
+        public async Task<List<Category>> GetAsync(Expression<Func<Category,bool>> predicate = null)
         {
-            var records = await _context
-                                 .Categories
-                                 .Include(x => x.CreatedByUser)
-                                 .Include(x => x.UpdatedByUser)
-                                 .AsNoTracking() // Use AsNoTracking for read-only queries
-                                 .OrderByDescending(x => x.CreatedDate)
-                                 .ToListAsync();
-            return records;
+            List<Category> records;
+            if (predicate == null)
+            {
+                records = await _context
+                                     .Categories
+                                     .Include(x => x.CreatedByUser)
+                                     .Include(x => x.UpdatedByUser)
+                                     .AsNoTracking() // Use AsNoTracking for read-only queries
+                                     .OrderByDescending(x => x.CreatedDate)
+                                     .ToListAsync();
+            }
+            else 
+            {
+                records = await _context
+                                     .Categories
+                                     .Where(predicate)
+                                     .Include(x => x.CreatedByUser)
+                                     .Include(x => x.UpdatedByUser)
+                                     .AsNoTracking() // Use AsNoTracking for read-only queries
+                                     .OrderByDescending(x => x.CreatedDate)
+                                     .ToListAsync();
+            }
+                return records;
         }
 
         public async Task<Category> GetByIdAsync(int id)
