@@ -10,6 +10,10 @@ namespace POS.Desktop.Utilities
 {
     public static class DialogBox
     {
+        public static DialogResult ConfirmDeleteAlert()
+        {
+           return MessageBox.Show(Message.ConfirmDeleteMessage, Message.ConfirmDeleteCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        }
         public static void SuccessAlert(string message, string caption = Message.Success)
         {
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);

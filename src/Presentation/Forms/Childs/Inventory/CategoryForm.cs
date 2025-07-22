@@ -54,19 +54,31 @@ namespace POS.Desktop.Forms.Childs.Inventory
 
         private async void btnDelete_Click(object sender, EventArgs e)
         {
-            var result = await _categoryService.DeleteAsync(_id);
-
-            if (result.Status == Status.Success)
+            if (_id > 0)
             {
-                await LoadCategoryAsync();
-                DialogBox.SuccessAlert(result.Message);
-                ResetControls();
+                var dialogResult = DialogBox.ConfirmDeleteAlert();
+
+                if(dialogResult == DialogResult.Yes) 
+                {
+                    var result = await _categoryService.DeleteAsync(_id);
+                    
+                    if (result.Status == Status.Success)
+                    {
+                        await LoadCategoryAsync();
+                        DialogBox.SuccessAlert(result.Message);
+                        ResetControls();
+                    }
+                    else
+                    {
+                        DialogBox.FailureAlert(result);
+                    }
+                }
             }
             else
             {
-                DialogBox.FailureAlert(result);
+                DialogBox.FailureAlert("Id is Required!");
             }
-            ResetControls();
+                ResetControls();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
