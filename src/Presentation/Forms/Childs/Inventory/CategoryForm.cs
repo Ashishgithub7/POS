@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
 using POS.Business.Services.Inventory.Categories;
 using POS.Common.Constants;
 using POS.Common.DTO.Common;
@@ -46,6 +47,40 @@ namespace POS.Desktop.Forms.Childs.Inventory
         {
             await UpsertAsync();
         }
+        private async void btnUpdate_Click(object sender, EventArgs e)
+        {
+            await UpsertAsync(true);            
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            var result = await _categoryService.DeleteAsync(_id);
+
+            if (result.Status == Status.Success)
+            {
+                await LoadCategoryAsync();
+                DialogBox.SuccessAlert(result.Message);
+                ResetControls();
+            }
+            else
+            {
+                DialogBox.FailureAlert(result);
+            }
+            ResetControls();    
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            ResetControls();
+        }
+
+        private void ResetControls()
+        {
+            btnSave.Enabled = true;
+            _id = 0;
+            txtCategoryName.Clear();
+            txtCategoryName.Focus();
+        }
         private async Task UpsertAsync(bool isUpdate = false) 
         {
             string name = txtCategoryName.Text.Trim();
@@ -73,51 +108,23 @@ namespace POS.Desktop.Forms.Childs.Inventory
             await OnSuccessAsync(result);
 
         }
-        private async void btnUpdate_Click(object sender, EventArgs e)
-        {
-            await UpsertAsync(true);
-            btnSave.Enabled = true;
-            
-        }
-
-        private async void btnDelete_Click(object sender, EventArgs e)
-        {
-            btnSave.Enabled = true;
-            var result = await _categoryService.DeleteAsync(_id);
-
-            if (result.Status == Status.Success)
-            {
-                await LoadCategoryAsync();
-                DialogBox.SuccessAlert(result.Message);
-                ResetControls();
-            }
-            else
-            {
-                DialogBox.FailureAlert(result);
-            }
-            ResetControls();    
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            ResetControls();
-        }
-
-        private void ResetControls()
-        {
-            _id = 0;
-            txtCategoryName.Clear();
-            txtCategoryName.Focus();
-        }
 
         private void SearchTxtBox_TextChanged(object sender, EventArgs e)
         {
+            string searchedText = SearchTxtBox.Text.Trim();
 
-        }
-
-        private void grdView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            if (String.IsNullOrEmpty(searchedText)) 
+            {
+                dgvCategory.DataSource = _categories;
+                return;
+            }
+            else 
+            {
+                var filteredCategories = _categories
+                                               .Where(x => x.Name.Contains(searchedText, StringComparison.OrdinalIgnoreCase))
+                                               .ToList();
+               dgvCategory.DataSource = filteredCategories;
+            }
         }
 
         private async void CategoryForm_Load(object sender, EventArgs e)
@@ -228,8 +235,6 @@ namespace POS.Desktop.Forms.Childs.Inventory
                     DialogBox.FailureAlert(result);
                 }
             }
-
-
         }
 
        

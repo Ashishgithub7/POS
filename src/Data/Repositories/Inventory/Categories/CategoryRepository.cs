@@ -64,14 +64,16 @@ namespace POS.Data.Repositories.Inventory.Categories
         #region Write
         public async Task SaveAsync(Category request)
         {
+            await CheckIfExist(request.Name);
             await _context
-                  .Categories
-                  .AddAsync(request);
+              .Categories
+              .AddAsync(request);
             await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Category request)
         {
+            await CheckIfExist(request.Name);
             var existingRecord = await GetExistingRecordAsync(request.Id);
 
             existingRecord.Name = request.Name;
@@ -105,6 +107,17 @@ namespace POS.Data.Repositories.Inventory.Categories
             }
 
             return existingRecord;
+        }
+
+        private async Task CheckIfExist(string name)
+        {
+            bool exists = await _context
+                                 .Categories
+                                 .AnyAsync(x => x.Name == name);
+            if (exists)
+            {
+                throw new Exception($"Category '{name}' already exists.");
+            }
         }
     }
 }

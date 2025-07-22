@@ -142,7 +142,6 @@
             dgvCategory.Name = "dgvCategory";
             dgvCategory.Size = new Size(897, 255);
             dgvCategory.TabIndex = 10;
-            dgvCategory.CellContentClick += grdView_CellContentClick;
             dgvCategory.CellDoubleClick += dgvCategory_CellDoubleClick;
             // 
             // CategoryForm
