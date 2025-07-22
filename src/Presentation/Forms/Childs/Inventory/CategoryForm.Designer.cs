@@ -39,6 +39,7 @@
             lblSearch = new Label();
             SearchTxtBox = new TextBox();
             dgvCategory = new DataGridView();
+            btnExit = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCategory).BeginInit();
             SuspendLayout();
             // 
@@ -144,11 +145,23 @@
             dgvCategory.TabIndex = 10;
             dgvCategory.CellDoubleClick += dgvCategory_CellDoubleClick;
             // 
+            // btnExit
+            // 
+            btnExit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnExit.Location = new Point(839, 12);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(75, 23);
+            btnExit.TabIndex = 11;
+            btnExit.Text = "Exit(F10)";
+            btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
+            // 
             // CategoryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1027, 530);
+            Controls.Add(btnExit);
             Controls.Add(dgvCategory);
             Controls.Add(SearchTxtBox);
             Controls.Add(lblSearch);
@@ -181,5 +194,6 @@
         private Label lblSearch;
         private TextBox SearchTxtBox;
         private DataGridView dgvCategory;
+        private Button btnExit;
     }
 }

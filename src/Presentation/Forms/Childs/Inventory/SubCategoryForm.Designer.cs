@@ -52,6 +52,7 @@
             exitBtn.TabIndex = 1;
             exitBtn.Text = "Exit";
             exitBtn.UseVisualStyleBackColor = true;
+            exitBtn.Click += exitBtn_Click;
             // 
             // SubCategoryForm
             // 

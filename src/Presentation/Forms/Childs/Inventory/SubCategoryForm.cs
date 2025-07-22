@@ -21,5 +21,10 @@ namespace POS.Desktop.Forms.Childs.Inventory
         {
 
         }
+
+        private void exitBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

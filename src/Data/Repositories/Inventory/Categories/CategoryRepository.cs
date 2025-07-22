@@ -73,8 +73,12 @@ namespace POS.Data.Repositories.Inventory.Categories
 
         public async Task UpdateAsync(Category request)
         {
-            await CheckIfExist(request.Name);
             var existingRecord = await GetExistingRecordAsync(request.Id);
+
+            if(request.Name != existingRecord.Name)
+            {
+               await CheckIfExist(request.Name); 
+            }
 
             existingRecord.Name = request.Name;
             existingRecord.LastModifiedDate = DateTime.Now;

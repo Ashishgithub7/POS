@@ -51,9 +51,11 @@ namespace POS.Desktop.Forms
         }
         private void OpenChildForm<T>() where T : Form
         {
-            foreach (var child in MdiChildren)
+            var existingForm = MdiChildren.FirstOrDefault(x => x is T);
+            if (existingForm != null)
             {
-                child.Close();
+                existingForm.BringToFront();
+                return;
             }
             var Form = Program.ServiceProvider.GetRequiredService<T>() as Form;
             Form.MdiParent = this;

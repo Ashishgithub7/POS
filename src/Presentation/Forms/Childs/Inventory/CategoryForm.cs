@@ -49,7 +49,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
         }
         private async void btnUpdate_Click(object sender, EventArgs e)
         {
-            await UpsertAsync(true);            
+            await UpsertAsync(true);
         }
 
         private async void btnDelete_Click(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
             {
                 DialogBox.FailureAlert(result);
             }
-            ResetControls();    
+            ResetControls();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -81,11 +81,11 @@ namespace POS.Desktop.Forms.Childs.Inventory
             txtCategoryName.Clear();
             txtCategoryName.Focus();
         }
-        private async Task UpsertAsync(bool isUpdate = false) 
+        private async Task UpsertAsync(bool isUpdate = false)
         {
             string name = txtCategoryName.Text.Trim();
             OutputDto result;
-            if (isUpdate) 
+            if (isUpdate)
             {
                 var request = new CategoryUpdateDto
                 {
@@ -113,17 +113,17 @@ namespace POS.Desktop.Forms.Childs.Inventory
         {
             string searchedText = SearchTxtBox.Text.Trim();
 
-            if (String.IsNullOrEmpty(searchedText)) 
+            if (String.IsNullOrEmpty(searchedText))
             {
                 dgvCategory.DataSource = _categories;
                 return;
             }
-            else 
+            else
             {
                 var filteredCategories = _categories
                                                .Where(x => x.Name.Contains(searchedText, StringComparison.OrdinalIgnoreCase))
                                                .ToList();
-               dgvCategory.DataSource = filteredCategories;
+                dgvCategory.DataSource = filteredCategories;
             }
         }
 
@@ -237,7 +237,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
             }
         }
 
-       
+
 
         private async Task OnSuccessAsync(Common.DTO.Common.OutputDto result)
         {
@@ -253,6 +253,9 @@ namespace POS.Desktop.Forms.Childs.Inventory
 
         }
 
-
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
