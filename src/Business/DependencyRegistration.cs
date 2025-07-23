@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using POS.Business.Services.Inventory.Categories;
+using POS.Business.Services.Inventory.SubCategories;
 using POS.Business.Services.Login;
 using POS.Common.DTO.Login;
 using POS.Common.Validators.Login;
@@ -13,6 +14,7 @@ namespace POS.Business
         {    
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddValidatorsFromAssemblyContaining<LoginRequestDtoValidator>();
            
         }

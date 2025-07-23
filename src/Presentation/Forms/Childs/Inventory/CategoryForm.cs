@@ -17,6 +17,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Message = POS.Common.Constants.Message;
 
 namespace POS.Desktop.Forms.Childs.Inventory
 {
@@ -52,48 +53,6 @@ namespace POS.Desktop.Forms.Childs.Inventory
         {
             await UpsertAsync(true);
         }
-
-        private async void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (_id > 0)
-            {
-                var dialogResult = DialogBox.ConfirmDeleteAlert();
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    var result = await _categoryService.DeleteAsync(_id);
-
-                    if (result.Status == Status.Success)
-                    {
-                        await LoadCategoryAsync();
-                        DialogBox.SuccessAlert(result.Message);
-                        ResetControls();
-                    }
-                    else
-                    {
-                        DialogBox.FailureAlert(result);
-                    }
-                }
-            }
-            else
-            {
-                DialogBox.FailureAlert("Id is Required!");
-            }
-            ResetControls();
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            ResetControls();
-        }
-
-        private void ResetControls()
-        {
-            btnSave.Enabled = true;
-            _id = 0;
-            txtCategoryName.Clear();
-            txtCategoryName.Focus();
-        }
         private async Task UpsertAsync(bool isUpdate = false)
         {
             string name = txtCategoryName.Text.Trim();
@@ -121,6 +80,54 @@ namespace POS.Desktop.Forms.Childs.Inventory
             await OnSuccessAsync(result);
 
         }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            await DeleteAsync();
+        }
+
+        private async Task DeleteAsync()
+        {
+            if (_id > 0)
+            {
+                var dialogResult = DialogBox.ConfirmDeleteAlert();
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    var result = await _categoryService.DeleteAsync(_id);
+
+                    if (result.Status == Status.Success)
+                    {
+                        await LoadCategoryAsync();
+                        DialogBox.SuccessAlert(result.Message);
+                        ResetControls();
+                    }
+                    else
+                    {
+                        DialogBox.FailureAlert(result);
+                    }
+                }
+            }
+            else
+            {
+                DialogBox.FailureAlert(Message.SelectionRequiredMessage);
+            }
+            ResetControls();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            ResetControls();
+        }
+
+        private void ResetControls()
+        {
+            btnSave.Enabled = true;
+            _id = 0;
+            txtCategoryName.Clear();
+            txtCategoryName.Focus();
+        }
+        
 
         private void SearchTxtBox_TextChanged(object sender, EventArgs e)
         {
@@ -248,11 +255,12 @@ namespace POS.Desktop.Forms.Childs.Inventory
                     DialogBox.FailureAlert(result);
                 }
             }
+            txtCategoryName.Focus();
         }
 
 
 
-        private async Task OnSuccessAsync(Common.DTO.Common.OutputDto result)
+        private async Task OnSuccessAsync(OutputDto result)
         {
             if (result.Status == Status.Success)
             {
@@ -271,27 +279,27 @@ namespace POS.Desktop.Forms.Childs.Inventory
             this.Close();
         }
 
-        private void CategoryForm_KeyDown(object sender, KeyEventArgs e)
+        private async void CategoryForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.F2) 
+            if (e.KeyCode == Keys.F2)
             {
-                btnSave_Click(sender,e);
+                await UpsertAsync();
             }
-            else if(e.KeyCode == Keys.F3)
+            else if (e.KeyCode == Keys.F3)
             {
-                btnUpdate_Click(sender, e);
+                await UpsertAsync(true);
             }
             else if (e.KeyCode == Keys.F4)
             {
-                btnDelete_Click(sender, e);
+                await DeleteAsync();
             }
             else if (e.KeyCode == Keys.F5)
             {
-                btnCancel_Click(sender, e);
+                ResetControls();
             }
-            else if(e.KeyCode == Keys.F10) 
+            else if (e.KeyCode == Keys.F10)
             {
-                btnExit_Click(sender, e);
+                this.Close();
             }
         }
     }

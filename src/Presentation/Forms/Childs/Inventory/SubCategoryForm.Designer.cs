@@ -38,10 +38,10 @@
             btnUpdate = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
-            dataGridView1 = new DataGridView();
+            dgvSubCategory = new DataGridView();
             lblSearch = new Label();
             txtBoxSearch = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSubCategory).BeginInit();
             SuspendLayout();
             // 
             // lblSubCategoryHdr
@@ -53,7 +53,6 @@
             lblSubCategoryHdr.Size = new Size(78, 15);
             lblSubCategoryHdr.TabIndex = 0;
             lblSubCategoryHdr.Text = "Sub Category";
-            lblSubCategoryHdr.Click += label1_Click;
             // 
             // exitBtn
             // 
@@ -107,6 +106,7 @@
             btnSave.TabIndex = 6;
             btnSave.Text = "Save(F2)";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnUpdate
             // 
@@ -116,6 +116,7 @@
             btnUpdate.TabIndex = 7;
             btnUpdate.Text = "Update(F3)";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
@@ -125,6 +126,7 @@
             btnDelete.TabIndex = 8;
             btnDelete.Text = "Delete(F4)";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnCancel
             // 
@@ -134,15 +136,17 @@
             btnCancel.TabIndex = 9;
             btnCancel.Text = "Cancel(F5)";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
-            // dataGridView1
+            // dgvSubCategory
             // 
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(28, 173);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(748, 265);
-            dataGridView1.TabIndex = 10;
+            dgvSubCategory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvSubCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSubCategory.Location = new Point(28, 173);
+            dgvSubCategory.Name = "dgvSubCategory";
+            dgvSubCategory.Size = new Size(748, 265);
+            dgvSubCategory.TabIndex = 10;
+            dgvSubCategory.CellDoubleClick += dgvSubCategory_CellDoubleClick;
             // 
             // lblSearch
             // 
@@ -161,6 +165,7 @@
             txtBoxSearch.Name = "txtBoxSearch";
             txtBoxSearch.Size = new Size(144, 23);
             txtBoxSearch.TabIndex = 12;
+            txtBoxSearch.TextChanged += txtBoxSearch_TextChanged;
             // 
             // SubCategoryForm
             // 
@@ -169,7 +174,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(txtBoxSearch);
             Controls.Add(lblSearch);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvSubCategory);
             Controls.Add(btnCancel);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
@@ -182,7 +187,9 @@
             Controls.Add(lblSubCategoryHdr);
             Name = "SubCategoryForm";
             Text = "SubCategoryForm";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Load += SubCategoryForm_Load;
+            KeyDown += SubCategoryForm_KeyDown;
+            ((System.ComponentModel.ISupportInitialize)dgvSubCategory).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -199,7 +206,7 @@
         private Button btnUpdate;
         private Button btnDelete;
         private Button btnCancel;
-        private DataGridView dataGridView1;
+        private DataGridView dgvSubCategory;
         private Label lblSearch;
         private TextBox txtBoxSearch;
     }

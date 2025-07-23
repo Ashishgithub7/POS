@@ -12,6 +12,7 @@ namespace POS.Common.Constants
         public const string Failed = "Failed";
         public const string ConfirmDeleteCaption = "Confirm Delete";
         public const string ConfirmDeleteMessage = "Are you sure you want to delete ?";
+        public const string SelectionRequiredMessage = "Selection is Required!";
 
     }
 }
