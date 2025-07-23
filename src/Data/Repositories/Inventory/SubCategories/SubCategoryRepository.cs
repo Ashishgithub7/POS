@@ -72,6 +72,7 @@ namespace POS.Data.Repositories.Inventory.SubCategories
                await CheckIfExist(request.Name); 
             }
 
+            existingRecord.CategoryId = request.CategoryId;
             existingRecord.Name = request.Name;
             existingRecord.LastModifiedDate = DateTime.Now;
             existingRecord.LastModifiedBy = request.LastModifiedBy;
