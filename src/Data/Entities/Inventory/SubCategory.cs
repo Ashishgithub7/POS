@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace POS.Data.Entities.Inventory
 {
-    public class Category : BaseEntity
+    public class SubCategory : BaseEntity
     {
         public string Name { get; set; }
-
+        public int CategoryId { get; set; }
         public AppUser CreatedByUser { get; set; }
         public AppUser UpdatedByUser { get; set; }
-        public ICollection<SubCategory> SubCategories { get; set; }
+        public Category Category { get; set; }
     }
 }

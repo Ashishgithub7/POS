@@ -16,6 +16,8 @@ namespace POS.Data.Entities.Login
         public DateTime? LastModifiedDate { get; set; }
         public ICollection<Category> CreatedCategories{ get; set; }
         public ICollection<Category> UpdatedCategories{ get; set; }
+        public ICollection<SubCategory> CreatedSubCategories { get; set; }
+        public ICollection<SubCategory> UpdatedSubCategories { get; set; }
 
     }
 }
