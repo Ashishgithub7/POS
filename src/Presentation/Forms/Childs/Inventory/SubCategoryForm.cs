@@ -15,6 +15,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
         public SubCategoryForm()
         {
             InitializeComponent();
+            KeyPreview = true;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -26,5 +27,6 @@ namespace POS.Desktop.Forms.Childs.Inventory
         {
             this.Close();
         }
+
     }
 }
