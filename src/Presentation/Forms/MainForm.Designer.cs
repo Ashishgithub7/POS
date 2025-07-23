@@ -67,21 +67,24 @@
             // categoryToolStripMenuItem
             // 
             categoryToolStripMenuItem.Name = "categoryToolStripMenuItem";
-            categoryToolStripMenuItem.Size = new Size(180, 22);
+            categoryToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D1;
+            categoryToolStripMenuItem.Size = new Size(185, 22);
             categoryToolStripMenuItem.Text = "Category";
             categoryToolStripMenuItem.Click += categoryToolStripMenuItem_Click;
             // 
             // subCategoryToolStripMenuItem
             // 
             subCategoryToolStripMenuItem.Name = "subCategoryToolStripMenuItem";
-            subCategoryToolStripMenuItem.Size = new Size(180, 22);
+            subCategoryToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D2;
+            subCategoryToolStripMenuItem.Size = new Size(185, 22);
             subCategoryToolStripMenuItem.Text = "Sub Category";
             subCategoryToolStripMenuItem.Click += subCategoryToolStripMenuItem_Click;
             // 
             // productToolStripMenuItem
             // 
             productToolStripMenuItem.Name = "productToolStripMenuItem";
-            productToolStripMenuItem.Size = new Size(180, 22);
+            productToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D3;
+            productToolStripMenuItem.Size = new Size(185, 22);
             productToolStripMenuItem.Text = "Product";
             productToolStripMenuItem.Click += productToolStripMenuItem_Click;
             // 
@@ -146,8 +149,9 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(38, 20);
-            exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F10;
+            exitToolStripMenuItem.Size = new Size(91, 20);
+            exitToolStripMenuItem.Text = "Exit(Ctrl+F10)";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // MainForm

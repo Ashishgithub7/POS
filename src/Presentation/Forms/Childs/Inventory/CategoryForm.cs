@@ -41,6 +41,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
             btnSave.TabIndex = 1;
             btnUpdate.TabIndex = 2;
             btnDelete.TabIndex = 3;
+            KeyPreview = true;
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
@@ -58,10 +59,10 @@ namespace POS.Desktop.Forms.Childs.Inventory
             {
                 var dialogResult = DialogBox.ConfirmDeleteAlert();
 
-                if(dialogResult == DialogResult.Yes) 
+                if (dialogResult == DialogResult.Yes)
                 {
                     var result = await _categoryService.DeleteAsync(_id);
-                    
+
                     if (result.Status == Status.Success)
                     {
                         await LoadCategoryAsync();
@@ -78,7 +79,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
             {
                 DialogBox.FailureAlert("Id is Required!");
             }
-                ResetControls();
+            ResetControls();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -268,6 +269,30 @@ namespace POS.Desktop.Forms.Childs.Inventory
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void CategoryForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.F2) 
+            {
+                btnSave_Click(sender,e);
+            }
+            else if(e.KeyCode == Keys.F3)
+            {
+                btnUpdate_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.F4)
+            {
+                btnDelete_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.F5)
+            {
+                btnCancel_Click(sender, e);
+            }
+            else if(e.KeyCode == Keys.F10) 
+            {
+                btnExit_Click(sender, e);
+            }
         }
     }
 }

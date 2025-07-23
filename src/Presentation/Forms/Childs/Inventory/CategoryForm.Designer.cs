@@ -85,7 +85,7 @@
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(75, 23);
             btnSave.TabIndex = 4;
-            btnSave.Text = "Save (F2)";
+            btnSave.Text = "Save(F2)";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
@@ -95,7 +95,7 @@
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
             btnUpdate.TabIndex = 5;
-            btnUpdate.Text = "Update";
+            btnUpdate.Text = "Update(F3)";
             btnUpdate.UseVisualStyleBackColor = true;
             btnUpdate.Click += btnUpdate_Click;
             // 
@@ -105,7 +105,7 @@
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 6;
-            btnDelete.Text = "Delete";
+            btnDelete.Text = "Delete(F4)";
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
@@ -115,7 +115,7 @@
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 23);
             btnCancel.TabIndex = 7;
-            btnCancel.Text = "Cancel (F3)";
+            btnCancel.Text = "Cancel (F5)";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
             // 
@@ -176,6 +176,7 @@
             Name = "CategoryForm";
             Text = "CategoryForm";
             Load += CategoryForm_Load;
+            KeyDown += CategoryForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dgvCategory).EndInit();
             ResumeLayout(false);
             PerformLayout();

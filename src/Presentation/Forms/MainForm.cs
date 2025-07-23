@@ -21,6 +21,7 @@ namespace POS.Desktop.Forms
         {
             InitializeComponent();
             WindowState = FormWindowState.Maximized;
+            KeyPreview = true; // Enable key preview to capture key events at the form level
         }
 
         private void supplierPurchaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -38,7 +39,7 @@ namespace POS.Desktop.Forms
             OpenChildForm<CategoryForm>();
         }
 
-        
+
 
         private void subCategoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -49,6 +50,7 @@ namespace POS.Desktop.Forms
         {
 
         }
+
         private void OpenChildForm<T>() where T : Form
         {
             var existingForm = MdiChildren.FirstOrDefault(x => x is T);
