@@ -317,7 +317,10 @@ namespace POS.Desktop.Forms.Childs.Inventory
             else
             {
                 var filteredCategories = _subCategories
-                                               .Where(x => x.Name.Contains(searchedText, StringComparison.OrdinalIgnoreCase))
+                                               .Where(x => 
+                                                          x.Name.Contains(searchedText, StringComparison.OrdinalIgnoreCase) || 
+                                                          x.CategoryName.Contains(searchedText, StringComparison.OrdinalIgnoreCase)
+                                                      )
                                                .ToList();
                 dgvSubCategory.DataSource = filteredCategories;
             }
