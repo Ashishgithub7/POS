@@ -18,6 +18,8 @@ namespace POS.Data.Entities.Login
         public ICollection<Category> UpdatedCategories{ get; set; }
         public ICollection<SubCategory> CreatedSubCategories { get; set; }
         public ICollection<SubCategory> UpdatedSubCategories { get; set; }
+        public ICollection<Product> CreatedProducts { get; set; }
+        public ICollection<Product> UpdatedProducts { get; set; }
 
     }
 }

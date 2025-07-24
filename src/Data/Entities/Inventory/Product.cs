@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace POS.Data.Entities.Inventory
 {
-    public class SubCategory : BaseEntity
+    public class Product : BaseEntity
     {
         public string Name { get; set; }
-        public int CategoryId { get; set; }
+        public int SubCategoryId { get; set; }
+        public decimal PurchasePrice { get; set; }
+        public decimal SellingPrice { get; set; }
+        public int Stock { get; set; }
         public AppUser CreatedByUser { get; set; }
         public AppUser UpdatedByUser { get; set; }
-        public Category Category { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public SubCategory SubCategory { get; set; }
     }
 }
