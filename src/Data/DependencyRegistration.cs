@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using POS.Data.Data;
 using POS.Data.Entities.Login;
 using POS.Data.Repositories.Inventory.Categories;
+using POS.Data.Repositories.Inventory.Products;
 using POS.Data.Repositories.Inventory.SubCategories;
 using POS.Data.Repositories.Login;
 using System;
@@ -34,6 +35,7 @@ namespace POS.Data
             services.AddScoped<ILoginRepository, LoginRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
     }
 }
