@@ -53,6 +53,31 @@ namespace POS.Business.Services.Inventory.SubCategories
 
         }
 
+        public async Task<OutputDto<List<SubCategoryReadDto>>> GetByCategoryIdAsync(int categoryId)
+        {
+             try
+            {
+                var records = await _subCategoryRepository.GetAsync(x => x.CategoryId == categoryId);
+                var result = records.Select(x => new SubCategoryReadDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CategoryName = x.Category.Name,
+                    CreatedBy = x.CreatedByUser.UserName,
+                    CreatedDate = x.CreatedDate.FormatDate(),
+                    LastModifiedBy = x.UpdatedByUser?.UserName,
+                    LastModifiedDate = x.LastModifiedDate?.FormatDate()
+                }).ToList();
+
+                return OutputDtoConverter.SetSuccess(result);
+            }
+            catch (Exception ex)
+            {
+                return OutputDtoConverter.SetFailed(ex.Message, new List<SubCategoryReadDto>());
+            }
+
+        }
+
         public async Task<OutputDto<SubCategoryReadDto>> GetByIdAsync(int id)
         {
             try

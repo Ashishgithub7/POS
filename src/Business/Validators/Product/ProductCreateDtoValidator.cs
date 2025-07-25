@@ -16,7 +16,6 @@ namespace POS.Business.Validators.Product
     {
         public ProductCreateDtoValidator()
         {
-           Include(new CategoryCreateDtoValidator());
 
             RuleFor(x => x.SubCategoryId)
             .NotEmpty()
@@ -28,7 +27,10 @@ namespace POS.Business.Validators.Product
             
             RuleFor(x => x.SellingPrice)
             .NotEmpty()
-            .WithMessage("Selling Price is required.");
+            .WithMessage("Selling Price is required.")
+            .GreaterThanOrEqualTo(x => (x.PurchasePrice + (x.PurchasePrice * 10) / 100));
+           
+            Include(new CategoryCreateDtoValidator());
         }
     }
 }
