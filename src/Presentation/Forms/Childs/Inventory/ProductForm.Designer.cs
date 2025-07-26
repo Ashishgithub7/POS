@@ -78,6 +78,7 @@
             cbxCategoryName.Name = "cbxCategoryName";
             cbxCategoryName.Size = new Size(144, 23);
             cbxCategoryName.TabIndex = 2;
+            cbxCategoryName.SelectedIndexChanged += cbxCategoryName_SelectedIndexChanged;
             // 
             // lblCategoryName
             // 

@@ -31,6 +31,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
 
         private int _userId;
         private int _id;
+        private int _selectedCategoryId;
 
         public ProductForm(ICategoryService categoryService, ISubCategoryService subCategoryService, IProductService productService)
         {
@@ -81,7 +82,6 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 _userId = mainForm.LoggedInUserId;
             }
             await LoadCategoryComboBoxAsync();
-            //await LoadSubCategoryComboBoxAsync();
             await LoadProductGridAsync();
         }
 
@@ -114,6 +114,36 @@ namespace POS.Desktop.Forms.Childs.Inventory
             cbxCategoryName.DisplayMember = nameof(CategoryReadDto.Name);
             cbxCategoryName.ValueMember = nameof(CategoryReadDto.Id);
             cbxCategoryName.SelectedIndex = 0; // Set default selection to the first item
+        }
+        private async Task LoadSubCategoryComboBoxAsync(int selectedCategoryId)
+        {
+            List<SubCategoryReadDto> subCategories;
+            var result = await _subCategoryService.GetByCategoryIdAsync(selectedCategoryId);
+            if (result.Status == Status.Success)
+            {
+                subCategories = result.Data;
+                subCategories.Insert(0, new()
+                {
+                    Id = 0,
+                    Name = "Select a Sub Category"
+                }
+                );
+            }
+            else
+            {
+                subCategories =
+                [
+                    new SubCategoryReadDto
+                    {
+                        Id = 0,
+                        Name = "No Sub Categories Available"
+                    }
+                ];
+            }
+            cbxSubCategoryName.DataSource = subCategories;
+            cbxSubCategoryName.DisplayMember = nameof(SubCategoryReadDto.Name);
+            cbxSubCategoryName.ValueMember = nameof(SubCategoryReadDto.Id);
+            cbxSubCategoryName.SelectedIndex = 0; // Set default selection to the first item
         }
 
         public async Task LoadProductGridAsync()
@@ -409,6 +439,23 @@ namespace POS.Desktop.Forms.Childs.Inventory
             else if (e.KeyCode == Keys.F10)
             {
                 this.Close();
+            }
+        }
+
+        private async void cbxCategoryName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxCategoryName.SelectedItem is CategoryReadDto category) // Cast the selected item to the correct type
+            {
+                _selectedCategoryId = category.Id;
+
+                if (_selectedCategoryId >= 0)
+                {
+                    await LoadSubCategoryComboBoxAsync(_selectedCategoryId);
+                }
+                else
+                {
+                    throw new Exception("Invalid Category ID");
+                }
             }
         }
     }
