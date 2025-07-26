@@ -17,6 +17,7 @@ namespace POS.Desktop
             services.AddScoped<MainForm>();
             services.AddScoped<CategoryForm>();
             services.AddScoped<SubCategoryForm>();
+            services.AddScoped<ProductForm>();
    
         }
     }

@@ -37,17 +37,17 @@
             btnUpdate = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
-            dgvSubCategory = new DataGridView();
+            dgvProduct = new DataGridView();
             lblSearch = new Label();
-            txtBoxSearch = new TextBox();
-            comboBox1 = new ComboBox();
+            txtSearch = new TextBox();
+            cbxSubCategoryName = new ComboBox();
             lblProductName = new Label();
             lblPurchasePrice = new Label();
             lblSellingPrice = new Label();
             txtProductName = new TextBox();
             txtPurchasePrice = new TextBox();
             txtSellingPrice = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dgvSubCategory).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvProduct).BeginInit();
             SuspendLayout();
             // 
             // lblProductManagementHdr
@@ -105,6 +105,7 @@
             btnSave.TabIndex = 6;
             btnSave.Text = "Save(F2)";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnUpdate
             // 
@@ -114,6 +115,7 @@
             btnUpdate.TabIndex = 7;
             btnUpdate.Text = "Update(F3)";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
@@ -123,6 +125,7 @@
             btnDelete.TabIndex = 8;
             btnDelete.Text = "Delete(F4)";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnCancel
             // 
@@ -132,15 +135,17 @@
             btnCancel.TabIndex = 9;
             btnCancel.Text = "Cancel(F5)";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
-            // dgvSubCategory
+            // dgvProduct
             // 
-            dgvSubCategory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvSubCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSubCategory.Location = new Point(26, 291);
-            dgvSubCategory.Name = "dgvSubCategory";
-            dgvSubCategory.Size = new Size(750, 229);
-            dgvSubCategory.TabIndex = 10;
+            dgvProduct.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvProduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProduct.Location = new Point(26, 291);
+            dgvProduct.Name = "dgvProduct";
+            dgvProduct.Size = new Size(750, 229);
+            dgvProduct.TabIndex = 10;
+            dgvProduct.CellDoubleClick += dgvProduct_CellDoubleClick;
             // 
             // lblSearch
             // 
@@ -152,21 +157,22 @@
             lblSearch.TabIndex = 11;
             lblSearch.Text = "Search :";
             // 
-            // txtBoxSearch
+            // txtSearch
             // 
-            txtBoxSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtBoxSearch.Location = new Point(632, 247);
-            txtBoxSearch.Name = "txtBoxSearch";
-            txtBoxSearch.Size = new Size(144, 23);
-            txtBoxSearch.TabIndex = 12;
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtSearch.Location = new Point(632, 247);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(144, 23);
+            txtSearch.TabIndex = 12;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
-            // comboBox1
+            // cbxSubCategoryName
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(122, 80);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(144, 23);
-            comboBox1.TabIndex = 13;
+            cbxSubCategoryName.FormattingEnabled = true;
+            cbxSubCategoryName.Location = new Point(122, 80);
+            cbxSubCategoryName.Name = "cbxSubCategoryName";
+            cbxSubCategoryName.Size = new Size(144, 23);
+            cbxSubCategoryName.TabIndex = 13;
             // 
             // lblProductName
             // 
@@ -227,10 +233,10 @@
             Controls.Add(lblSellingPrice);
             Controls.Add(lblPurchasePrice);
             Controls.Add(lblProductName);
-            Controls.Add(comboBox1);
-            Controls.Add(txtBoxSearch);
+            Controls.Add(cbxSubCategoryName);
+            Controls.Add(txtSearch);
             Controls.Add(lblSearch);
-            Controls.Add(dgvSubCategory);
+            Controls.Add(dgvProduct);
             Controls.Add(btnCancel);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
@@ -242,7 +248,9 @@
             Controls.Add(lblProductManagementHdr);
             Name = "ProductForm";
             Text = "SubCategoryForm";
-            ((System.ComponentModel.ISupportInitialize)dgvSubCategory).EndInit();
+            Load += ProductForm_Load;
+            KeyDown += ProductForm_KeyDown;
+            ((System.ComponentModel.ISupportInitialize)dgvProduct).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -258,10 +266,10 @@
         private Button btnUpdate;
         private Button btnDelete;
         private Button btnCancel;
-        private DataGridView dgvSubCategory;
+        private DataGridView dgvProduct;
         private Label lblSearch;
-        private TextBox txtBoxSearch;
-        private ComboBox comboBox1;
+        private TextBox txtSearch;
+        private ComboBox cbxSubCategoryName;
         private Label lblProductName;
         private Label lblPurchasePrice;
         private Label lblSellingPrice;

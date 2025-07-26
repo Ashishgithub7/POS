@@ -244,7 +244,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
         private async void dgvSubCategory_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             btnSave.Enabled = false;
-            _id = (int)dgvSubCategory.Rows[e.RowIndex].Cells[nameof(CategoryReadDto.Id)].Value;
+            _id = (int)dgvSubCategory.Rows[e.RowIndex].Cells[nameof(SubCategoryReadDto.Id)].Value;
             if (_id > 0)
             {
                 var result = await _subCategoryService.GetByIdAsync(_id);

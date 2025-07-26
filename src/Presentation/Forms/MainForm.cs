@@ -48,7 +48,7 @@ namespace POS.Desktop.Forms
 
         private void productToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            OpenChildForm<ProductForm>();
         }
 
         private void OpenChildForm<T>() where T : Form
