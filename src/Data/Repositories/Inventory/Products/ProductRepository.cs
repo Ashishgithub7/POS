@@ -32,6 +32,7 @@ namespace POS.Data.Repositories.Inventory.Products
                                      .Include(x => x.CreatedByUser)
                                      .Include(x => x.UpdatedByUser)
                                      .Include(x => x.SubCategory)
+                                     .ThenInclude(x => x.Category) // Include Category through SubCategory
                                      .AsNoTracking() // Use AsNoTracking for read-only queries
                                      .OrderByDescending(x => x.CreatedDate)
                                      .ToListAsync();
@@ -44,6 +45,7 @@ namespace POS.Data.Repositories.Inventory.Products
                                      .Include(x => x.CreatedByUser)
                                      .Include(x => x.UpdatedByUser)
                                      .Include(x => x.SubCategory)
+                                     .ThenInclude(x => x.Category) // Include Category through SubCategory
                                      .AsNoTracking() // Use AsNoTracking for read-only queries
                                      .OrderByDescending(x => x.CreatedDate)
                                      .ToListAsync();

@@ -31,8 +31,6 @@ namespace POS.Desktop.Forms.Childs.Inventory
 
         private int _userId;
         private int _id;
-        private int _selectedCategoryId;
-
         public ProductForm(ICategoryService categoryService, ISubCategoryService subCategoryService, IProductService productService)
         {
             InitializeComponent();
@@ -82,6 +80,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 _userId = mainForm.LoggedInUserId;
             }
             await LoadCategoryComboBoxAsync();
+            LoadEmptySubCategory();
             await LoadProductGridAsync();
         }
 
@@ -125,7 +124,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 subCategories.Insert(0, new()
                 {
                     Id = 0,
-                    Name = "Select a Sub Category"
+                    Name = Message.SelectSubCategoryMessage
                 }
                 );
             }
@@ -136,10 +135,15 @@ namespace POS.Desktop.Forms.Childs.Inventory
                     new SubCategoryReadDto
                     {
                         Id = 0,
-                        Name = "No Sub Categories Available"
+                        Name = Message.NoSubCategoryMessage
                     }
                 ];
             }
+            LoadSubCategoryList(subCategories);
+        }
+
+        private void LoadSubCategoryList(List<SubCategoryReadDto> subCategories)
+        {
             cbxSubCategoryName.DataSource = subCategories;
             cbxSubCategoryName.DisplayMember = nameof(SubCategoryReadDto.Name);
             cbxSubCategoryName.ValueMember = nameof(SubCategoryReadDto.Id);
@@ -175,10 +179,10 @@ namespace POS.Desktop.Forms.Childs.Inventory
             });
             dgvProduct.Columns.Add(new DataGridViewColumn
             {
-                Name = nameof(SubCategoryReadDto.Name),
+                Name = nameof(ProductReadDto.SubCategoryName),
                 HeaderText = "Sub Category",
                 CellTemplate = new DataGridViewTextBoxCell(),
-                DataPropertyName = nameof(SubCategoryReadDto.Name),
+                DataPropertyName = nameof(ProductReadDto.SubCategoryName),
                 Width = 200
 
             });
@@ -284,8 +288,8 @@ namespace POS.Desktop.Forms.Childs.Inventory
         {
             int subCategoryId = (int)cbxSubCategoryName.SelectedValue;
             string name = txtProductName.Text.Trim();
-            decimal purchasePrice = Convert.ToDecimal(txtPurchasePrice.Text.Trim());
-            decimal sellingPrice = Convert.ToDecimal(txtSellingPrice.Text.Trim());
+            decimal.TryParse(txtPurchasePrice.Text.Trim(), out decimal purchasePrice);
+            decimal.TryParse(txtSellingPrice.Text.Trim(), out decimal sellingPrice);
             OutputDto result;
             if (isUpdate)
             {
@@ -383,8 +387,11 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 if (result.Status == Status.Success)
                 {
                     var product = result.Data;
-                    cbxCategoryName.SelectedValue = product.CategoryName;
-                    cbxSubCategoryName.SelectedValue = product.SubCategoryName;
+                    cbxCategoryName.SelectedIndexChanged -= cbxCategoryName_SelectedIndexChanged;
+                    cbxCategoryName.Text = product.CategoryName;
+                    await LoadSubCategoriesByCategoryIdAsync();
+                    cbxSubCategoryName.Text = product.SubCategoryName;
+                    cbxCategoryName.SelectedIndexChanged += cbxCategoryName_SelectedIndexChanged;
                     txtProductName.Text = product.Name;
                     txtPurchasePrice.Text = product.PurchasePrice.ToString();
                     txtSellingPrice.Text = product.SellingPrice.ToString();
@@ -411,7 +418,8 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 var filteredProducts = _products
                                                .Where(x =>
                                                           x.Name.Contains(searchedText, StringComparison.OrdinalIgnoreCase) ||
-                                                          x.CategoryName.Contains(searchedText, StringComparison.OrdinalIgnoreCase)
+                                                          x.CategoryName.Contains(searchedText, StringComparison.OrdinalIgnoreCase)||
+                                                          x.SubCategoryName.Contains(searchedText, StringComparison.OrdinalIgnoreCase)
                                                       )
                                                .ToList();
                 dgvProduct.DataSource = filteredProducts;
@@ -444,19 +452,34 @@ namespace POS.Desktop.Forms.Childs.Inventory
 
         private async void cbxCategoryName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbxCategoryName.SelectedItem is CategoryReadDto category) // Cast the selected item to the correct type
-            {
-                _selectedCategoryId = category.Id;
+            await LoadSubCategoriesByCategoryIdAsync();
+        }
 
-                if (_selectedCategoryId >= 0)
-                {
-                    await LoadSubCategoryComboBoxAsync(_selectedCategoryId);
-                }
-                else
-                {
-                    throw new Exception("Invalid Category ID");
-                }
+        private async Task LoadSubCategoriesByCategoryIdAsync()
+        {
+            if (cbxCategoryName.SelectedIndex > 0)
+            {
+                int categoryId = (int)cbxCategoryName.SelectedValue; // Get the selected category ID
+                await LoadSubCategoryComboBoxAsync(categoryId);
             }
+            else
+            {
+                LoadEmptySubCategory();
+            }
+        }
+
+        private void LoadEmptySubCategory()
+        {
+            var subCategories = new List<SubCategoryReadDto>
+                {
+                   new SubCategoryReadDto
+                    {
+                        Id = 0,
+                        Name = Message.NoSubCategoryMessage
+                    }
+               };
+            LoadSubCategoryList(subCategories);
+
         }
     }
 }

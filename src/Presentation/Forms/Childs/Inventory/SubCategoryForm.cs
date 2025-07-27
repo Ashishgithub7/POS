@@ -250,7 +250,7 @@ namespace POS.Desktop.Forms.Childs.Inventory
                 var result = await _subCategoryService.GetByIdAsync(_id);
                 if (result.Status == Status.Success)
                 {
-                    cbxCategoryName.SelectedValue = result.Data.CategoryName;
+                    cbxCategoryName.Text = result.Data.CategoryName;
                     txtBoxSubCategoryName.Text = result.Data.Name;
                 }
                 else
