@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using POS.Data.Entities.Inventory;
+using POS.Data.Entities.PurchaseBilling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace POS.Data.Entities.Login
         public ICollection<SubCategory> UpdatedSubCategories { get; set; }
         public ICollection<Product> CreatedProducts { get; set; }
         public ICollection<Product> UpdatedProducts { get; set; }
+        public ICollection<Supplier> CreatedSuppliers { get; set; }
+        public ICollection<Supplier> UpdatedSuppliers { get; set; }
 
     }
 }
