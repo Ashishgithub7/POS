@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using POS.Desktop.Forms;
 using POS.Desktop.Forms.Childs.Inventory;
+using POS.Desktop.Forms.Childs.PurchaseBilling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace POS.Desktop
             services.AddScoped<CategoryForm>();
             services.AddScoped<SubCategoryForm>();
             services.AddScoped<ProductForm>();
+            services.AddScoped<SupplierForm>();
+            services.AddScoped<PurchaseForm>();
    
         }
     }

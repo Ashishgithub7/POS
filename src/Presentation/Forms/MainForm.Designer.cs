@@ -99,14 +99,16 @@
             // supplierToolStripMenuItem
             // 
             supplierToolStripMenuItem.Name = "supplierToolStripMenuItem";
-            supplierToolStripMenuItem.Size = new Size(122, 22);
+            supplierToolStripMenuItem.Size = new Size(180, 22);
             supplierToolStripMenuItem.Text = "Supplier";
+            supplierToolStripMenuItem.Click += supplierToolStripMenuItem_Click;
             // 
             // purchaseToolStripMenuItem
             // 
             purchaseToolStripMenuItem.Name = "purchaseToolStripMenuItem";
-            purchaseToolStripMenuItem.Size = new Size(122, 22);
+            purchaseToolStripMenuItem.Size = new Size(180, 22);
             purchaseToolStripMenuItem.Text = "Purchase";
+            purchaseToolStripMenuItem.Click += purchaseToolStripMenuItem_Click;
             // 
             // pOSToolStripMenuItem
             // 

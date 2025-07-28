@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using POS.Desktop.Forms.Childs.Inventory;
+using POS.Desktop.Forms.Childs.PurchaseBilling;
 using POS.Presentation;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,16 @@ namespace POS.Desktop.Forms
         private void productToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenChildForm<ProductForm>();
+        }
+
+        private void supplierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenChildForm<SupplierForm>();
+        }
+
+        private void purchaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenChildForm<PurchaseForm>();
         }
 
         private void OpenChildForm<T>() where T : Form
