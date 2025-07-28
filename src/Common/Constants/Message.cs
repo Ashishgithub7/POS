@@ -15,5 +15,6 @@ namespace POS.Common.Constants
         public const string SelectionRequiredMessage = "Selection is Required";
         public const string NoSubCategoryMessage = "No Sub Categories Available";
         public const string SelectSubCategoryMessage = "Select a Sub Category";
+        public const string IdRequiredMessage = "Id is required";
     }
 }
