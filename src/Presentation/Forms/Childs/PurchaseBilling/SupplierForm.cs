@@ -16,5 +16,6 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
         {
             InitializeComponent();
         }
+
     }
 }
