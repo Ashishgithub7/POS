@@ -40,7 +40,7 @@
             cbSupplier = new ComboBox();
             btnSave = new Button();
             btnCancel = new Button();
-            txtGrandTotal = new TextBox();
+            txtGrandTotal = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvPurchase).BeginInit();
             SuspendLayout();
             // 
@@ -149,10 +149,10 @@
             // 
             // txtGrandTotal
             // 
-            txtGrandTotal.Location = new Point(316, 400);
+            txtGrandTotal.AutoSize = true;
+            txtGrandTotal.Location = new Point(316, 404);
             txtGrandTotal.Name = "txtGrandTotal";
-            txtGrandTotal.ReadOnly = true;
-            txtGrandTotal.Size = new Size(131, 23);
+            txtGrandTotal.Size = new Size(13, 15);
             txtGrandTotal.TabIndex = 12;
             txtGrandTotal.Text = "0";
             // 
@@ -176,6 +176,7 @@
             Controls.Add(lblHdr);
             Name = "PurchaseForm";
             Text = "PurchaseForm";
+            Load += PurchaseForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPurchase).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -195,6 +196,6 @@
         private ComboBox cbSupplier;
         private Button btnSave;
         private Button btnCancel;
-        private TextBox txtGrandTotal;
+        private Label txtGrandTotal;
     }
 }
