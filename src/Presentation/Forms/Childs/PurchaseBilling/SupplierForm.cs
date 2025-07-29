@@ -304,9 +304,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 var filteredCategories = _suppliers
                                                .Where(x => x.Name.Contains(searchedText, StringComparison.OrdinalIgnoreCase) ||
                                                            x.ContactPerson.Contains(searchedText, StringComparison.OrdinalIgnoreCase)||
-                                                           x.ContactNumber.Contains(searchedText)||
-                                                           x.EmailAddress.Contains(searchedText, StringComparison.OrdinalIgnoreCase)||
-                                                           x.Address.Contains(searchedText, StringComparison.OrdinalIgnoreCase))
+                                                           x.ContactNumber.Contains(searchedText))
                                                .ToList();
                 dgvSupplier.DataSource = filteredCategories;
             }

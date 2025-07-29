@@ -99,6 +99,7 @@
             // supplierToolStripMenuItem
             // 
             supplierToolStripMenuItem.Name = "supplierToolStripMenuItem";
+            supplierToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D4;
             supplierToolStripMenuItem.Size = new Size(180, 22);
             supplierToolStripMenuItem.Text = "Supplier";
             supplierToolStripMenuItem.Click += supplierToolStripMenuItem_Click;
@@ -106,6 +107,7 @@
             // purchaseToolStripMenuItem
             // 
             purchaseToolStripMenuItem.Name = "purchaseToolStripMenuItem";
+            purchaseToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D5;
             purchaseToolStripMenuItem.Size = new Size(180, 22);
             purchaseToolStripMenuItem.Text = "Purchase";
             purchaseToolStripMenuItem.Click += purchaseToolStripMenuItem_Click;

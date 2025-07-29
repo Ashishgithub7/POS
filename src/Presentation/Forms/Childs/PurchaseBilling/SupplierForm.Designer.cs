@@ -203,6 +203,7 @@
             // 
             // lblSearch
             // 
+            lblSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblSearch.AutoSize = true;
             lblSearch.Location = new Point(522, 258);
             lblSearch.Name = "lblSearch";
@@ -212,6 +213,7 @@
             // 
             // txtSearch
             // 
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtSearch.Location = new Point(576, 254);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(131, 23);
