@@ -35,7 +35,7 @@
             lblEmailAddress = new Label();
             lblAddress = new Label();
             txtSupplierName = new TextBox();
-            textBox2 = new TextBox();
+            txtContactPerson = new TextBox();
             txtContactNumber = new TextBox();
             txtEmailAddress = new TextBox();
             txtAddress = new TextBox();
@@ -112,12 +112,12 @@
             txtSupplierName.Size = new Size(130, 23);
             txtSupplierName.TabIndex = 6;
             // 
-            // textBox2
+            // txtContactPerson
             // 
-            textBox2.Location = new Point(125, 86);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(130, 23);
-            textBox2.TabIndex = 7;
+            txtContactPerson.Location = new Point(125, 86);
+            txtContactPerson.Name = "txtContactPerson";
+            txtContactPerson.Size = new Size(130, 23);
+            txtContactPerson.TabIndex = 7;
             // 
             // txtContactNumber
             // 
@@ -149,6 +149,7 @@
             btnExit.TabIndex = 11;
             btnExit.Text = "Exit (F10)";
             btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // btnSave
             // 
@@ -158,6 +159,7 @@
             btnSave.TabIndex = 12;
             btnSave.Text = "Save (F2)";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnUpdate
             // 
@@ -167,6 +169,7 @@
             btnUpdate.TabIndex = 13;
             btnUpdate.Text = "Update (F3)";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
@@ -176,6 +179,7 @@
             btnDelete.TabIndex = 14;
             btnDelete.Text = "Delete (F4)";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnCancel
             // 
@@ -185,6 +189,7 @@
             btnCancel.TabIndex = 15;
             btnCancel.Text = "Cancel (F5)";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // dgvSupplier
             // 
@@ -194,6 +199,7 @@
             dgvSupplier.Name = "dgvSupplier";
             dgvSupplier.Size = new Size(690, 248);
             dgvSupplier.TabIndex = 16;
+            dgvSupplier.CellDoubleClick += dgvSupplier_CellDoubleClick;
             // 
             // lblSearch
             // 
@@ -210,6 +216,7 @@
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(131, 23);
             txtSearch.TabIndex = 18;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // SupplierForm
             // 
@@ -227,7 +234,7 @@
             Controls.Add(txtAddress);
             Controls.Add(txtEmailAddress);
             Controls.Add(txtContactNumber);
-            Controls.Add(textBox2);
+            Controls.Add(txtContactPerson);
             Controls.Add(txtSupplierName);
             Controls.Add(lblAddress);
             Controls.Add(lblEmailAddress);
@@ -237,6 +244,8 @@
             Controls.Add(lblHdr);
             Name = "SupplierForm";
             Text = "SupplierForm";
+            Load += SupplierForm_Load;
+            KeyDown += SupplierForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dgvSupplier).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -251,7 +260,7 @@
         private Label lblEmailAddress;
         private Label lblAddress;
         private TextBox txtSupplierName;
-        private TextBox textBox2;
+        private TextBox txtContactPerson;
         private TextBox txtContactNumber;
         private TextBox txtEmailAddress;
         private TextBox txtAddress;
