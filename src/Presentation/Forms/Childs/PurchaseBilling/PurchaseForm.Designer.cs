@@ -95,6 +95,7 @@
             txtProductName.Name = "txtProductName";
             txtProductName.Size = new Size(131, 23);
             txtProductName.TabIndex = 5;
+            txtProductName.KeyDown += txtProductName_KeyDown;
             // 
             // txtQuantity
             // 
@@ -102,6 +103,7 @@
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(131, 23);
             txtQuantity.TabIndex = 6;
+            txtQuantity.KeyDown += txtQuantity_KeyDown;
             // 
             // lblQuantity
             // 
