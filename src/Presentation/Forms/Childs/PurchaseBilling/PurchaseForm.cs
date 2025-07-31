@@ -28,6 +28,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
 
         private int _userId;
         private int _id;
+        private int _sn;
         public PurchaseForm(IProductService productService, ISupplierService supplierService)
         {
             InitializeComponent();
@@ -193,35 +194,52 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
 
             string productName = txtProductName.Text.Trim();
 
-            bool exists = _purchase
-                          .Any(x => x.Product == productName);
-            if (exists)
-            {
-                DialogBox.FailureAlert($"Product '{productName}' already exists");
-                ResetInputBoxes();
-                return;
-            }
-
             int.TryParse(txtQuantity.Text.Trim(), out int quantity);
             if (quantity <= 0)
                 quantity = 1;
-
-            int sn = _purchase
-                     .Select(x => x.SN)
-                     .LastOrDefault();
             decimal unitPrice = FindUnitPrice(productName);
-            _purchase.Add(new PurchaseGridDto
-            {
-                SN = sn + 1,
-                Product = productName,
-                Qty = quantity,
-                UnitPrice = unitPrice,
-                SubTotal = unitPrice * quantity
-            });
 
+            if (_sn > 0)
+            {
+                var existingProduct = _purchase
+                                      .FirstOrDefault(x => x.SN == _sn);
+                if (existingProduct != null) 
+                {
+                    existingProduct.Product = productName;
+                    existingProduct.Qty = quantity;
+                    existingProduct.UnitPrice = unitPrice;
+                    existingProduct.SubTotal = unitPrice * quantity;
+                }
+            }
+            else 
+            {
+                 bool exists = _purchase
+                              .Any(x => x.Product == productName);
+                 if (exists)
+                 {
+                     DialogBox.FailureAlert($"Product '{productName}' already exists");
+                     ResetInputBoxes();
+                     return;
+                 }
+                 
+                 
+                 int sn = _purchase
+                          .Select(x => x.SN)
+                          .LastOrDefault();
+                 _purchase.Add(new PurchaseGridDto
+                 {
+                     SN = sn + 1,
+                     Product = productName,
+                     Qty = quantity,
+                     UnitPrice = unitPrice,
+                     SubTotal = unitPrice * quantity
+                 });
+                 
+            }
             dgvPurchase.DataSource = null;
             dgvPurchase.DataSource = _purchase;
             ResetInputBoxes();
+            _sn = 0 ;
         }
 
         private void ResetInputBoxes()
@@ -242,10 +260,17 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
 
         private void txtQuantity_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true; // Prevent non-numeric input
             }
+        }
+
+        private void dgvPurchase_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            _sn = (int)dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.SN)].Value;
+            txtProductName.Text = dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.Product)].Value.ToString();
+            txtQuantity.Text = dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.Qty)].Value.ToString();
         }
     }
 }

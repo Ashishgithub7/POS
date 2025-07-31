@@ -70,6 +70,7 @@
             dgvPurchase.Name = "dgvPurchase";
             dgvPurchase.Size = new Size(640, 300);
             dgvPurchase.TabIndex = 2;
+            dgvPurchase.CellDoubleClick += dgvPurchase_CellDoubleClick;
             // 
             // lblProductName
             // 
