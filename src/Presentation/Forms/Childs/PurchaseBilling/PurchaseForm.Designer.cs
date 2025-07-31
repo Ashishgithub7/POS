@@ -104,6 +104,7 @@
             txtQuantity.Size = new Size(131, 23);
             txtQuantity.TabIndex = 6;
             txtQuantity.KeyDown += txtQuantity_KeyDown;
+            txtQuantity.KeyPress += txtQuantity_KeyPress;
             // 
             // lblQuantity
             // 

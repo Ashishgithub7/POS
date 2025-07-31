@@ -54,7 +54,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             dgvPurchase.ReadOnly = true;
             dgvPurchase.RowHeadersVisible = false;
 
-            
+
             dgvPurchase.Columns.Add(new DataGridViewColumn
             {
                 Name = nameof(PurchaseGridDto.SN),
@@ -149,8 +149,8 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
         {
             if (e.KeyCode == Keys.Enter)
             {
-              bool valid =  ValidateProduct();
-              if (!valid) return;
+                bool valid = ValidateProduct();
+                if (!valid) return;
 
                 txtQuantity.Focus();
             }
@@ -164,7 +164,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             {
                 DialogBox.FailureAlert("Please select a product");
                 txtProductName.Focus();
-                
+
             }
 
             bool exists = _products
@@ -173,25 +173,35 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             {
                 DialogBox.FailureAlert("Please select a valid product.");
                 txtProductName.Focus();
-                
+
             }
             return !String.IsNullOrEmpty(productName) && exists;
         }
 
         private void txtQuantity_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) 
+            if (e.KeyCode == Keys.Enter)
             {
                 LoadPurchaseGrid();
             }
         }
 
-        private void LoadPurchaseGrid() 
+        private void LoadPurchaseGrid()
         {
             bool valid = ValidateProduct();
             if (!valid) return;
 
             string productName = txtProductName.Text.Trim();
+
+            bool exists = _purchase
+                          .Any(x => x.Product == productName);
+            if (exists)
+            {
+                DialogBox.FailureAlert($"Product '{productName}' already exists");
+                ResetInputBoxes();
+                return;
+            }
+
             int.TryParse(txtQuantity.Text.Trim(), out int quantity);
             if (quantity <= 0)
                 quantity = 1;
@@ -211,18 +221,31 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
 
             dgvPurchase.DataSource = null;
             dgvPurchase.DataSource = _purchase;
+            ResetInputBoxes();
+        }
+
+        private void ResetInputBoxes()
+        {
             txtProductName.Clear();
             txtQuantity.Clear();
             txtProductName.Focus();
         }
 
-        private decimal FindUnitPrice(string product) 
+        private decimal FindUnitPrice(string product)
         {
-          decimal unitPrice = _products
-                              .Where(x => x.Name.Equals(product))
-                              .Select(x =>x.PurchasePrice)
-                              .FirstOrDefault();
+            decimal unitPrice = _products
+                                .Where(x => x.Name.Equals(product))
+                                .Select(x => x.PurchasePrice)
+                                .FirstOrDefault();
             return unitPrice;
+        }
+
+        private void txtQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; // Prevent non-numeric input
+            }
         }
     }
 }
