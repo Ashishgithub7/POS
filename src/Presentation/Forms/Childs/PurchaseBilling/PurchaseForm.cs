@@ -84,6 +84,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 HeaderText = "Quantity",
                 CellTemplate = new DataGridViewTextBoxCell(),
                 DataPropertyName = nameof(PurchaseGridDto.Qty),
+                Width=100
             });
             dgvPurchase.Columns.Add(new DataGridViewColumn
             {
@@ -91,7 +92,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 HeaderText = "SubTotal",
                 CellTemplate = new DataGridViewTextBoxCell(),
                 DataPropertyName = nameof(PurchaseGridDto.SubTotal),
-                Width = 200
+                Width = 100
             });
             dgvPurchase.Columns.Add(new DataGridViewButtonColumn
             {
@@ -100,7 +101,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 HeaderText = "Action",
                 Text = "Delete",
                 UseColumnTextForButtonValue = true,
-                Width = 150
+                Width = 50
             });
         }
         private async Task LoadAllProductsAsync()
@@ -304,24 +305,42 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 if (e.ColumnIndex == (int)dgvPurchase.CurrentRow.Cells["Action"].ColumnIndex)
                 {
                
-                    var dialogResult = DialogBox.ConfirmDeleteAlert();
-                    
-                    if (dialogResult == DialogResult.Yes)
+                    if(_purchase.Count > 0) 
                     {
-                        //Delete and result
-                        int sn = (int)dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.SN)].Value;
-
-                        var item = _purchase
-                                    .FirstOrDefault(x => x.SN == sn);
-
-                        _purchase.Remove(item);
-                        LoadPurchaseList();
-                        LoadGrandTotal();
-                    }
                     
-                    ResetInputBoxes();
+                        var dialogResult = DialogBox.ConfirmDeleteAlert();
+                        
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            //Delete and result
+                            RemoveItem();
+                        }
+
+                        ResetInputBoxes();
+                    }
 
                 }
+            }
+        }
+
+        private void RemoveItem()
+        {
+            int sn = (int)dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.SN)].Value;
+
+            var item = _purchase
+                        .FirstOrDefault(x => x.SN == sn);
+
+            _purchase.Remove(item);
+            UpdateSerialNumber();
+            LoadPurchaseList();
+            LoadGrandTotal();
+        }
+
+        private void UpdateSerialNumber()
+        {
+            for (int i = 0; i < _purchase.Count; i++)
+            {
+                _purchase[i].SN = i + 1;
             }
         }
     }

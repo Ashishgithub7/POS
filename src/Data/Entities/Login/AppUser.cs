@@ -23,6 +23,8 @@ namespace POS.Data.Entities.Login
         public ICollection<Product> UpdatedProducts { get; set; }
         public ICollection<Supplier> CreatedSuppliers { get; set; }
         public ICollection<Supplier> UpdatedSuppliers { get; set; }
+        public ICollection<Purchase> CreatedPurchases { get; set; }
+        public ICollection<Purchase> UpdatedPurchase { get; set; }
 
     }
 }

@@ -5,7 +5,6 @@ using POS.Common.DTO.Common;
 using POS.Common.DTO.Inventory.Categories;
 using POS.Common.DTO.PurchaseBilling.Suppliers;
 using POS.Common.Utilities;
-using POS.Data.Entities.Inventory;
 using POS.Data.Entities.PurchaseBilling;
 using POS.Data.Repositories.Inventory.Categories;
 using POS.Data.Repositories.PurchaseBilling.Suppliers;

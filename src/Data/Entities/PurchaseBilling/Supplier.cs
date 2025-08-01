@@ -17,5 +17,6 @@ namespace POS.Data.Entities.PurchaseBilling
         public string Address { get; set; }
         public AppUser CreatedByUser { get; set; }
         public AppUser UpdatedByUser { get; set; }
+        public ICollection<Purchase> Purchases { get; set; }    
     }
 }
