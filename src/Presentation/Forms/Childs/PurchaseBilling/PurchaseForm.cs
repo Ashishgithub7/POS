@@ -203,7 +203,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             {
                 var existingProduct = _purchase
                                       .FirstOrDefault(x => x.SN == _sn);
-                if (existingProduct != null) 
+                if (existingProduct != null)
                 {
                     existingProduct.Product = productName;
                     existingProduct.Qty = quantity;
@@ -211,35 +211,48 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                     existingProduct.SubTotal = unitPrice * quantity;
                 }
             }
-            else 
+            else
             {
-                 bool exists = _purchase
-                              .Any(x => x.Product == productName);
-                 if (exists)
-                 {
-                     DialogBox.FailureAlert($"Product '{productName}' already exists");
-                     ResetInputBoxes();
-                     return;
-                 }
-                 
-                 
-                 int sn = _purchase
-                          .Select(x => x.SN)
-                          .LastOrDefault();
-                 _purchase.Add(new PurchaseGridDto
-                 {
-                     SN = sn + 1,
-                     Product = productName,
-                     Qty = quantity,
-                     UnitPrice = unitPrice,
-                     SubTotal = unitPrice * quantity
-                 });
-                 
+                bool exists = _purchase
+                             .Any(x => x.Product == productName);
+                if (exists)
+                {
+                    DialogBox.FailureAlert($"Product '{productName}' already exists");
+                    ResetInputBoxes();
+                    return;
+                }
+
+
+                int sn = _purchase
+                         .Select(x => x.SN)
+                         .LastOrDefault();
+                _purchase.Add(new PurchaseGridDto
+                {
+                    SN = sn + 1,
+                    Product = productName,
+                    Qty = quantity,
+                    UnitPrice = unitPrice,
+                    SubTotal = unitPrice * quantity
+                });
+
             }
+            LoadPurchaseList();
+            LoadGrandTotal();
+            _sn = 0;
+        }
+
+        private void LoadPurchaseList()
+        {
             dgvPurchase.DataSource = null;
             dgvPurchase.DataSource = _purchase;
             ResetInputBoxes();
-            _sn = 0 ;
+        }
+
+        private void LoadGrandTotal()
+        {
+            decimal grandTotal = _purchase
+                                 .Sum(x => x.SubTotal);
+            txtGrandTotal.Text = grandTotal.ToString();
         }
 
         private void ResetInputBoxes()
@@ -268,9 +281,48 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
 
         private void dgvPurchase_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            _sn = (int)dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.SN)].Value;
-            txtProductName.Text = dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.Product)].Value.ToString();
-            txtQuantity.Text = dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.Qty)].Value.ToString();
+            if (e.RowIndex >= 0) 
+            {
+                if (e.ColumnIndex != (int)dgvPurchase.CurrentRow.Cells["Action"].ColumnIndex)
+                {
+                    _sn = (int)dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.SN)].Value;
+                    txtProductName.Text = dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.Product)].Value.ToString();
+                    txtQuantity.Text = dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.Qty)].Value.ToString();
+                }
+                else
+                {
+                    ResetInputBoxes();
+                }
+            }
+
+        }
+
+        private void dgvPurchase_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == (int)dgvPurchase.CurrentRow.Cells["Action"].ColumnIndex)
+                {
+               
+                    var dialogResult = DialogBox.ConfirmDeleteAlert();
+                    
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        //Delete and result
+                        int sn = (int)dgvPurchase.CurrentRow.Cells[nameof(PurchaseGridDto.SN)].Value;
+
+                        var item = _purchase
+                                    .FirstOrDefault(x => x.SN == sn);
+
+                        _purchase.Remove(item);
+                        LoadPurchaseList();
+                        LoadGrandTotal();
+                    }
+                    
+                    ResetInputBoxes();
+
+                }
+            }
         }
     }
 }
