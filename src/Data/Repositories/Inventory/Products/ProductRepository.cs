@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using POS.Common.Enums;
 using POS.Data.Data;
 using POS.Data.Entities.Inventory;
 using POS.Data.Repositories.Inventory.SubCategories;
@@ -93,7 +94,7 @@ namespace POS.Data.Repositories.Inventory.Products
 
             await _context.SaveChangesAsync();
 
-            #endregion Write
+           
         }
 
         private async Task<Product> GetExistingRecordAsync(int id)
@@ -119,5 +120,37 @@ namespace POS.Data.Repositories.Inventory.Products
                 throw new Exception($"Product '{name}' already exists.");
             }
         }
+        public async Task UpdateStockAsync(BillingType billingType, List<Product> products) 
+        {
+            var productIds = products
+                             .Select(x => x.Id)
+                             .ToList();
+
+            var existingProducts = await _context
+                                         .Products
+                                         .Where(x => productIds.Contains(x.Id))
+                                         .ToListAsync();
+            DateTime currentTime = DateTime.Now;
+
+            foreach (var existingProduct in existingProducts) 
+            {
+                var product = products
+                              .FirstOrDefault(x => x.Id == existingProduct.Id);
+
+                if(product != null) 
+                {
+                    if (billingType == BillingType.Purchase)
+                    {
+                        existingProduct.Stock += product.Stock;
+                    }
+                    else
+                        existingProduct.Stock -= product.Stock;
+
+                    existingProduct.LastModifiedDate = currentTime;
+                    existingProduct.LastModifiedBy = product.LastModifiedBy;
+                }
+            }
+        }
+        #endregion Write
     }
 }

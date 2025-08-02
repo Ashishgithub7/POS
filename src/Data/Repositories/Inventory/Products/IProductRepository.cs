@@ -1,4 +1,5 @@
-﻿using POS.Data.Entities.Inventory;
+﻿using POS.Common.Enums;
+using POS.Data.Entities.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace POS.Data.Repositories.Inventory.Products
         Task SaveAsync(Product request);
         Task UpdateAsync(Product request);
         Task DeleteAsync(int id);
+        Task UpdateStockAsync(BillingType billingType, List<Product> products);
 
         #endregion Write
     }

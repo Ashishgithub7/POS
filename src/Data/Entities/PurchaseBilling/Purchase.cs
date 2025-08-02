@@ -14,7 +14,7 @@ namespace POS.Data.Entities.PurchaseBilling
         public int CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int SuplierId { get; set; }
-        public int TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
         public Supplier Supplier { get; set; }
         public AppUser CreatedUser { get; set; }
         public ICollection<PurchaseDetail> PurchaseDetails { get; set; }
