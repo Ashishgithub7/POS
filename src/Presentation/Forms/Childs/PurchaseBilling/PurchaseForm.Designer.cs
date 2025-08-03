@@ -142,6 +142,7 @@
             btnSave.TabIndex = 10;
             btnSave.Text = "Save (F2)";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnCancel
             // 
@@ -151,6 +152,7 @@
             btnCancel.TabIndex = 11;
             btnCancel.Text = "Cancel (F3)";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // txtGrandTotal
             // 

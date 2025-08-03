@@ -9,6 +9,7 @@ namespace POS.Common.DTO.PurchaseBilling.Purchase
     public class PurchaseGridDto
     {
         public int SN { get; set; }
+        public int ProductId { get; set; }
         public string Product { get; set; }
         public int Qty { get; set; }
         public decimal UnitPrice { get; set; }

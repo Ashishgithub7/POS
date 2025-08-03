@@ -1,5 +1,6 @@
 ﻿using POS.Business.Services.Inventory.Categories;
 using POS.Business.Services.Inventory.Products;
+using POS.Business.Services.PurchaseBilling.Purchases;
 using POS.Business.Services.PurchaseBilling.Suppliers;
 using POS.Common.Constants;
 using POS.Common.DTO.Inventory.Categories;
@@ -23,18 +24,20 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
     {
         private readonly IProductService _productService;
         private readonly ISupplierService _supplierService;
+        private readonly IPurchaseService _purchaseService;
         private List<ProductReadDto> _products = new List<ProductReadDto>();
         private List<PurchaseGridDto> _purchase;
 
         private int _userId;
         private int _id;
         private int _sn;
-        public PurchaseForm(IProductService productService, ISupplierService supplierService)
+        public PurchaseForm(IProductService productService, ISupplierService supplierService, IPurchaseService purchaseService)
         {
             InitializeComponent();
             InitializeFormComponents();
             _productService = productService;
             _supplierService = supplierService;
+            _purchaseService = purchaseService;
             LoadPurchaseGridColumn();
             _purchase = new List<PurchaseGridDto>();
         }
@@ -84,7 +87,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 HeaderText = "Quantity",
                 CellTemplate = new DataGridViewTextBoxCell(),
                 DataPropertyName = nameof(PurchaseGridDto.Qty),
-                Width=100
+                Width = 100
             });
             dgvPurchase.Columns.Add(new DataGridViewColumn
             {
@@ -198,7 +201,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             int.TryParse(txtQuantity.Text.Trim(), out int quantity);
             if (quantity <= 0)
                 quantity = 1;
-            decimal unitPrice = FindUnitPrice(productName);
+            (int productId, decimal unitPrice) = FindProductIdAndUnitPrice(productName);
 
             if (_sn > 0)
             {
@@ -206,8 +209,9 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                                       .FirstOrDefault(x => x.SN == _sn);
                 if (existingProduct != null)
                 {
+                    existingProduct.ProductId = productId;
                     existingProduct.Product = productName;
-                    existingProduct.Qty = quantity;
+                    existingProduct.Qty = quantity;;
                     existingProduct.UnitPrice = unitPrice;
                     existingProduct.SubTotal = unitPrice * quantity;
                 }
@@ -219,7 +223,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 if (exists)
                 {
                     DialogBox.FailureAlert($"Product '{productName}' already exists");
-                    ResetInputBoxes();
+                    ResetControls();
                     return;
                 }
 
@@ -230,6 +234,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 _purchase.Add(new PurchaseGridDto
                 {
                     SN = sn + 1,
+                    ProductId = productId,
                     Product = productName,
                     Qty = quantity,
                     UnitPrice = unitPrice,
@@ -246,7 +251,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
         {
             dgvPurchase.DataSource = null;
             dgvPurchase.DataSource = _purchase;
-            ResetInputBoxes();
+            ResetControls();
         }
 
         private void LoadGrandTotal()
@@ -256,20 +261,34 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             txtGrandTotal.Text = grandTotal.ToString();
         }
 
-        private void ResetInputBoxes()
+        private void ResetControls()
         {
             txtProductName.Clear();
             txtQuantity.Clear();
             txtProductName.Focus();
         }
 
-        private decimal FindUnitPrice(string product)
+        private void ResetAllControls() 
+        {
+            _purchase = new List<PurchaseGridDto>();
+            LoadPurchaseList();
+            txtGrandTotal.Text = "0";
+            cbSupplier.SelectedIndex = 0;
+        }
+
+        private (int, decimal) FindProductIdAndUnitPrice(string product) 
         {
             decimal unitPrice = _products
                                 .Where(x => x.Name.Equals(product))
                                 .Select(x => x.PurchasePrice)
                                 .FirstOrDefault();
-            return unitPrice;
+
+            int productId = _products
+                                .Where(x => x.Name.Equals(product))
+                                .Select(x => x.Id)
+                                .FirstOrDefault();
+
+            return (productId, unitPrice);
         }
 
         private void txtQuantity_KeyPress(object sender, KeyPressEventArgs e)
@@ -282,7 +301,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
 
         private void dgvPurchase_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) 
+            if (e.RowIndex >= 0)
             {
                 if (e.ColumnIndex != (int)dgvPurchase.CurrentRow.Cells["Action"].ColumnIndex)
                 {
@@ -292,7 +311,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 }
                 else
                 {
-                    ResetInputBoxes();
+                    ResetControls();
                 }
             }
 
@@ -304,19 +323,19 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             {
                 if (e.ColumnIndex == (int)dgvPurchase.CurrentRow.Cells["Action"].ColumnIndex)
                 {
-               
-                    if(_purchase.Count > 0) 
+
+                    if (_purchase.Count > 0)
                     {
-                    
+
                         var dialogResult = DialogBox.ConfirmDeleteAlert();
-                        
+
                         if (dialogResult == DialogResult.Yes)
                         {
                             //Delete and result
                             RemoveItem();
                         }
 
-                        ResetInputBoxes();
+                        ResetControls();
                     }
 
                 }
@@ -342,6 +361,47 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             {
                 _purchase[i].SN = i + 1;
             }
+        }
+
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            await SaveAsync();
+        }
+
+        private async Task SaveAsync() 
+        {
+            var supplierId = (int)cbSupplier.SelectedValue;
+
+            var purchaseDetails = _purchase
+                                  .Select(x => new PurchaseDetailCreateDto {
+                                     ProductId = x.ProductId,
+                                     Quantity = x.Qty,
+                                      UnitPrice = x.UnitPrice
+                                  }).ToList();
+
+            var purchase = new PurchaseCreateDto
+            {
+                SupplierId = supplierId,
+                CreatedBy = _userId,
+                PurchaseDetails = purchaseDetails
+            };
+
+           var result = await _purchaseService.SaveAsync(purchase);
+
+            if(result.Status == Common.Enums.Status.Success)
+            {
+                DialogBox.SuccessAlert("Purchase saved successfully.");
+                ResetAllControls();
+            }
+            else
+            {
+                DialogBox.FailureAlert(result.Message);
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
