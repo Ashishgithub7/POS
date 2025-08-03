@@ -4,6 +4,7 @@ using POS.Business.Services.Inventory.Categories;
 using POS.Business.Services.Inventory.Products;
 using POS.Business.Services.Inventory.SubCategories;
 using POS.Business.Services.Login;
+using POS.Business.Services.PurchaseBilling.Purchases;
 using POS.Business.Services.PurchaseBilling.Suppliers;
 using POS.Common.DTO.Login;
 using POS.Common.Validators.Login;
@@ -19,6 +20,7 @@ namespace POS.Business
             services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IPurchaseService, PurchaseService>();
             services.AddValidatorsFromAssemblyContaining<LoginRequestDtoValidator>();
            
         }

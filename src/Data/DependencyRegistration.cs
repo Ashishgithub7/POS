@@ -9,6 +9,7 @@ using POS.Data.Repositories.Inventory.SubCategories;
 using POS.Data.Repositories.Login;
 using POS.Data.Repositories.PurchaseBilling.Purchases;
 using POS.Data.Repositories.PurchaseBilling.Suppliers;
+using POS.Data.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,7 @@ namespace POS.Data
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+            services.AddScoped<ITransactionManager, DbContextTransactionManager>();
         }
     }
 }

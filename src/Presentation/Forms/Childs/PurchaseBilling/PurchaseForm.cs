@@ -211,7 +211,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 {
                     existingProduct.ProductId = productId;
                     existingProduct.Product = productName;
-                    existingProduct.Qty = quantity;;
+                    existingProduct.Qty = quantity; ;
                     existingProduct.UnitPrice = unitPrice;
                     existingProduct.SubTotal = unitPrice * quantity;
                 }
@@ -268,7 +268,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             txtProductName.Focus();
         }
 
-        private void ResetAllControls() 
+        private void ResetAllControls()
         {
             _purchase = new List<PurchaseGridDto>();
             LoadPurchaseList();
@@ -276,7 +276,7 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             cbSupplier.SelectedIndex = 0;
         }
 
-        private (int, decimal) FindProductIdAndUnitPrice(string product) 
+        private (int, decimal) FindProductIdAndUnitPrice(string product)
         {
             decimal unitPrice = _products
                                 .Where(x => x.Name.Equals(product))
@@ -368,14 +368,15 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
             await SaveAsync();
         }
 
-        private async Task SaveAsync() 
+        private async Task SaveAsync()
         {
             var supplierId = (int)cbSupplier.SelectedValue;
 
             var purchaseDetails = _purchase
-                                  .Select(x => new PurchaseDetailCreateDto {
-                                     ProductId = x.ProductId,
-                                     Quantity = x.Qty,
+                                  .Select(x => new PurchaseDetailCreateDto
+                                  {
+                                      ProductId = x.ProductId,
+                                      Quantity = x.Qty,
                                       UnitPrice = x.UnitPrice
                                   }).ToList();
 
@@ -386,22 +387,38 @@ namespace POS.Desktop.Forms.Childs.PurchaseBilling
                 PurchaseDetails = purchaseDetails
             };
 
-           var result = await _purchaseService.SaveAsync(purchase);
+            var result = await _purchaseService.SaveAsync(purchase);
 
-            if(result.Status == Common.Enums.Status.Success)
+            if (result.Status == Common.Enums.Status.Success)
             {
                 DialogBox.SuccessAlert("Purchase saved successfully.");
                 ResetAllControls();
             }
             else
             {
-                DialogBox.FailureAlert(result.Message);
+                DialogBox.FailureAlert(result);
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            ResetAllControls();
+        }
 
+        private async void PurchaseForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                await SaveAsync();
+            }
+            else if (e.KeyCode == Keys.F3)
+            {
+                ResetAllControls();
+            }
+            else if (e.KeyCode == Keys.F10)
+            {
+                this.Close();
+            }
         }
     }
 }

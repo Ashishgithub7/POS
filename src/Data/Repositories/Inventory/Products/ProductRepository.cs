@@ -149,6 +149,7 @@ namespace POS.Data.Repositories.Inventory.Products
                     existingProduct.LastModifiedDate = currentTime;
                     existingProduct.LastModifiedBy = product.LastModifiedBy;
                 }
+               await _context.SaveChangesAsync();
             }
         }
         #endregion Write

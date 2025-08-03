@@ -184,6 +184,7 @@
             Name = "PurchaseForm";
             Text = "PurchaseForm";
             Load += PurchaseForm_Load;
+            KeyDown += PurchaseForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dgvPurchase).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -43,7 +43,7 @@ namespace POS.Business.Services.PurchaseBilling.Purchases
 
                 decimal totalAmount = request
                                   .PurchaseDetails
-                                  .Sum(x => x.UnitPrice);
+                                  .Sum(x => (x.Quantity * x.UnitPrice));
 
                 var purchaseDetails = request
                                       .PurchaseDetails
