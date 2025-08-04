@@ -143,8 +143,18 @@ namespace POS.Data.Repositories.Inventory.Products
                     {
                         existingProduct.Stock += product.Stock;
                     }
-                    else
-                        existingProduct.Stock -= product.Stock;
+                    else 
+                    {
+                        if (existingProduct.Stock >= product.Stock)
+                        { 
+                            existingProduct.Stock -= product.Stock;
+                        }
+                        else
+                        {
+                            throw new Exception("Stock not enough for one or more product");
+                        }
+                    }
+
 
                     existingProduct.LastModifiedDate = currentTime;
                     existingProduct.LastModifiedBy = product.LastModifiedBy;
