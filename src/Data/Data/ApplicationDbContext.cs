@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using POS.Data.Entities.Inventory;
 using POS.Data.Entities.Login;
+using POS.Data.Entities.POS;
 using POS.Data.Entities.PurchaseBilling;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace POS.Data.Data
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
+        public DbSet<Sales> Sales { get; set; }
+        public DbSet<SalesDetail> SalesDetails { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }

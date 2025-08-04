@@ -1,5 +1,6 @@
 ﻿using POS.Data.Entities.Common;
 using POS.Data.Entities.Login;
+using POS.Data.Entities.POS;
 using POS.Data.Entities.PurchaseBilling;
 using System;
 using System.Collections.Generic;
@@ -20,5 +21,6 @@ namespace POS.Data.Entities.Inventory
         public AppUser UpdatedByUser { get; set; }
         public SubCategory SubCategory { get; set; }
         public ICollection<PurchaseDetail> PurchaseDetails { get; set; }
+        public ICollection<SalesDetail> SalesDetails { get; set; }
     }
 }
