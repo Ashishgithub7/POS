@@ -329,6 +329,14 @@ namespace POS.Desktop.Forms.Childs.POS
             txtGrandTotal.Text = "0";
             txtNetTotal.Text = "0";
             txtDiscount.Clear();
+            ResetDiscount();
+        }
+
+        private void ResetDiscount() 
+        {
+            discountAmount = 0;
+            discountPercentage = 0;
+            netTotal = 0;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -430,7 +438,10 @@ namespace POS.Desktop.Forms.Childs.POS
                 }
                 netTotal = grandTotal - discountAmount;
                 txtNetTotal.Text = netTotal.ToString();
+                txtDiscount.Clear();
+                txtProductName.Focus();
             }
+           
 
 
         }
