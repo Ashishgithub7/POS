@@ -1,4 +1,5 @@
 ﻿using POS.Business.Services.Inventory.Products;
+using POS.Business.Services.POS;
 using POS.Business.Services.PurchaseBilling.Purchases;
 using POS.Business.Services.PurchaseBilling.Suppliers;
 using POS.Common.DTO.Inventory.Products;
@@ -23,18 +24,20 @@ namespace POS.Desktop.Forms.Childs.POS
     public partial class SalesForm : Form
     {
         private readonly IProductService _productService;
+        private readonly ISalesService _salesService;
 
         private List<ProductReadDto> _products;
         private List<SalesGridDto> _sales;
-        private decimal netTotal, discountAmount, discountPercentage;
+        private decimal _netTotal, _discountAmount, _discountPercentage;
         private const int _margin = 10; // Margin for the discount calculation
 
         private int _userId;
         private int _sn;
         private string _pattern = @"^\d+(-?)$"; // Regex pattern to allow only digits and an optional negative sign at the end
-        public SalesForm(IProductService productService)
+        public SalesForm(IProductService productService, ISalesService salesService)
         {
             _productService = productService;
+            _salesService = salesService;
             InitializeComponent();
             InitializeFormComponents();
             LoadSalesGridColumn();
@@ -334,9 +337,9 @@ namespace POS.Desktop.Forms.Childs.POS
 
         private void ResetDiscount() 
         {
-            discountAmount = 0;
-            discountPercentage = 0;
-            netTotal = 0;
+            _discountAmount = 0;
+            _discountPercentage = 0;
+            _netTotal = 0;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -361,21 +364,23 @@ namespace POS.Desktop.Forms.Childs.POS
 
             var sales = new SalesCreateDto
             {
+                DiscountAmount = _discountAmount,
+                DiscountPercentage = _discountPercentage,
                 CreatedBy = _userId,
                 SalesDetails = salesDetails
             };
 
-            //var result = await _salesService.SaveAsync(sales);
+            var result = await _salesService.SaveAsync(sales);
 
-            //if (result.Status == Status.Success)
-            //{
-            //    DialogBox.SuccessAlert("Sales saved successfully.");
-            //    ResetAllControls();
-            //}
-            //else
-            //{
-            //    DialogBox.FailureAlert(result);
-            //}
+            if (result.Status == Status.Success)
+            {
+                ResetAllControls();
+                DialogBox.SuccessAlert("Sales saved successfully.");
+            }
+            else
+            {
+                DialogBox.FailureAlert(result);
+            }
         }
 
         private async void SalesForm_KeyDown(object sender, KeyEventArgs e)
@@ -417,8 +422,8 @@ namespace POS.Desktop.Forms.Childs.POS
                 if (discountText.EndsWith('-'))
                 {
                     decimal grandTotalDiscount = (grandTotal * _margin) / 100;
-                    discountAmount = Convert.ToDecimal(discountText.TrimEnd('-'));
-                    if (discountAmount > grandTotalDiscount)
+                    _discountAmount = Convert.ToDecimal(discountText.TrimEnd('-'));
+                    if (_discountAmount > grandTotalDiscount)
                     {
                         DialogBox.FailureAlert($"Discount amount cannot be greater than {grandTotalDiscount}");
                         txtDiscount.Focus();
@@ -427,17 +432,17 @@ namespace POS.Desktop.Forms.Childs.POS
                 }
                 else
                 {
-                    discountPercentage = Convert.ToDecimal(discountText);
-                    if (discountPercentage > _margin)
+                    _discountPercentage = Convert.ToDecimal(discountText);
+                    if (_discountPercentage > _margin)
                     {
                         DialogBox.FailureAlert($"Discount percentage cannot be greater than 10%");
                         txtDiscount.Focus();
                         return;
                     }
-                    discountAmount = (grandTotal * discountPercentage) / 100;
+                    _discountAmount = (grandTotal * _discountPercentage) / 100;
                 }
-                netTotal = grandTotal - discountAmount;
-                txtNetTotal.Text = netTotal.ToString();
+                _netTotal = grandTotal - _discountAmount;
+                txtNetTotal.Text = _netTotal.ToString();
                 txtDiscount.Clear();
                 txtProductName.Focus();
             }

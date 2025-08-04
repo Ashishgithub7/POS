@@ -17,7 +17,6 @@ namespace POS.Data.Entities.POS
         public decimal NetTotal { get; set; }
         public int CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public Supplier Supplier { get; set; }
         public AppUser CreatedUser { get; set; }
         public ICollection<SalesDetail> SalesDetails { get; set; }
     }

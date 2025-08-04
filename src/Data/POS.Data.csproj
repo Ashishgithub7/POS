@@ -4,12 +4,14 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <UserSecretsId>9b73fff4-3fc8-418b-aae0-1f836e360993</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>  
 	<PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.6" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">
