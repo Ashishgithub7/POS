@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using POS.Data.Data;
 using POS.Data.Entities.Login;
+using POS.Data.Repositories.Dapper;
 using POS.Data.Repositories.Inventory.Categories;
 using POS.Data.Repositories.Inventory.Products;
 using POS.Data.Repositories.Inventory.SubCategories;
@@ -44,6 +45,7 @@ namespace POS.Data
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             services.AddScoped<ITransactionManager, DbContextTransactionManager>();
             services.AddScoped<ISalesRepository, SalesRepository>();
+            services.AddScoped<IDapperRepository, DapperRepository>();
         }
     }
 }
