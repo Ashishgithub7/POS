@@ -137,13 +137,15 @@
             // salesToolStripMenuItem1
             // 
             salesToolStripMenuItem1.Name = "salesToolStripMenuItem1";
-            salesToolStripMenuItem1.Size = new Size(119, 22);
+            salesToolStripMenuItem1.ShortcutKeys = Keys.Control | Keys.D7;
+            salesToolStripMenuItem1.Size = new Size(180, 22);
             salesToolStripMenuItem1.Text = "Sales";
+            salesToolStripMenuItem1.Click += salesToolStripMenuItem1_Click;
             // 
             // revenueToolStripMenuItem
             // 
             revenueToolStripMenuItem.Name = "revenueToolStripMenuItem";
-            revenueToolStripMenuItem.Size = new Size(119, 22);
+            revenueToolStripMenuItem.Size = new Size(180, 22);
             revenueToolStripMenuItem.Text = "Revenue";
             // 
             // helpToolStripMenuItem

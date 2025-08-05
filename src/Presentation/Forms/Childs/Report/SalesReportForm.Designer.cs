@@ -1,6 +1,6 @@
 ﻿namespace POS.Desktop.Forms.Childs.Report
 {
-    partial class SalesReport
+    partial class SalesReportForm
     {
         /// <summary>
         /// Required designer variable.
@@ -55,6 +55,7 @@
             btnExit.TabIndex = 1;
             btnExit.Text = "Exit(F10)";
             btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // lblFilter
             // 
@@ -82,7 +83,7 @@
             dgvSalesReport.Size = new Size(702, 325);
             dgvSalesReport.TabIndex = 4;
             // 
-            // SalesReport
+            // SalesReportForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -92,8 +93,8 @@
             Controls.Add(lblFilter);
             Controls.Add(btnExit);
             Controls.Add(lblHdr);
-            Name = "SalesReport";
-            Text = "SalesReport";
+            Name = "SalesReportForm";
+            Text = "SalesReportForm";
             ((System.ComponentModel.ISupportInitialize)dgvSalesReport).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -106,5 +107,7 @@
         private Label lblFilter;
         private ComboBox cbFilter;
         private DataGridView dgvSalesReport;
+
+
     }
 }

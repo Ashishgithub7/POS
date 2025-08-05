@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace POS.Desktop.Forms.Childs.Report
 {
-    public partial class SalesReport : Form
+    public partial class SalesReportForm : Form
     {
-        public SalesReport()
+        public SalesReportForm()
         {
             InitializeComponent();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

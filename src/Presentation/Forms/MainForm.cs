@@ -2,6 +2,7 @@
 using POS.Desktop.Forms.Childs.Inventory;
 using POS.Desktop.Forms.Childs.POS;
 using POS.Desktop.Forms.Childs.PurchaseBilling;
+using POS.Desktop.Forms.Childs.Report;
 using POS.Presentation;
 using System;
 using System.Collections.Generic;
@@ -66,6 +67,11 @@ namespace POS.Desktop.Forms
         private void salesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenChildForm<SalesForm>();
+        }
+
+        private void salesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            OpenChildForm<SalesReportForm>();
         }
 
         private void OpenChildForm<T>() where T : Form
