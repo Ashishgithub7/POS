@@ -73,6 +73,7 @@
             cbFilter.Name = "cbFilter";
             cbFilter.Size = new Size(147, 23);
             cbFilter.TabIndex = 3;
+            cbFilter.SelectedIndexChanged += cbFilter_SelectedIndexChanged;
             // 
             // dgvSalesReport
             // 
@@ -95,6 +96,7 @@
             Controls.Add(lblHdr);
             Name = "SalesReportForm";
             Text = "SalesReportForm";
+            Load += SalesReportForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvSalesReport).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -11,6 +11,7 @@ namespace POS.Data.Models
         public decimal TotalGrossAmount { get; set; }
         public decimal TotalDiscountAmount { get; set; }
         public decimal TotalDiscountPercentage { get; set; }
+        public decimal TotalNetAmount { get; set; }
         public int TotalRecords { get; set; }
 
     }

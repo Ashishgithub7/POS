@@ -3,6 +3,7 @@ using POS.Desktop.Forms;
 using POS.Desktop.Forms.Childs.Inventory;
 using POS.Desktop.Forms.Childs.POS;
 using POS.Desktop.Forms.Childs.PurchaseBilling;
+using POS.Desktop.Forms.Childs.Report;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace POS.Desktop
             services.AddScoped<SupplierForm>();
             services.AddScoped<PurchaseForm>();
             services.AddScoped<SalesForm>();
+            services.AddScoped<SalesReportForm>();
    
         }
     }

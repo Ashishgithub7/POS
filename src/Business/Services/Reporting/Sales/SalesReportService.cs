@@ -22,13 +22,15 @@ namespace POS.Business.Services.Reporting.Sales
         {
             try 
             {
-                var reportTypes = new List<String>
-                    {
-                        ReportType.Daily.ToString(),
-                        ReportType.Weekly.ToString(),
-                        ReportType.Monthly.ToString(),
-                        ReportType.Yearly.ToString()
-                    };
+                //var reportTypes = new List<String>
+                //{
+                //    ReportType.Daily.ToString(),
+                //    ReportType.Weekly.ToString(),
+                //    ReportType.Monthly.ToString(),
+                //    ReportType.Yearly.ToString()
+                //};
+
+                var reportTypes = EnumUtility.GetNamesEnum<ReportType>();
                 return OutputDtoConverter.SetSuccess(reportTypes);
             }
             catch (Exception ex)
