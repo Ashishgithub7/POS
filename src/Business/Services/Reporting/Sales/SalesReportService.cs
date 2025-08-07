@@ -39,19 +39,20 @@ namespace POS.Business.Services.Reporting.Sales
             }
         }
 
-        public async Task<OutputDto<SalesReport>> GetSalesReport(ReportType reportType)
+        public async Task<OutputDto<List<SalesReport>>> GetSalesReport(ReportType reportType)
         {
             DateTime dateTime = DateTime.Now;
             DateTime startDate, endDate;
             try
             {
                 CalculateStartEndDate(reportType, dateTime, out startDate, out endDate);
-                var result = await _salesReportRepository.GetSalesReport(startDate, endDate);
-                return OutputDtoConverter.SetSuccess<SalesReport>(result);
+                var salesReport = await _salesReportRepository.GetSalesReport(startDate, endDate);
+                var result = new List<SalesReport> { salesReport };
+                return OutputDtoConverter.SetSuccess<List<SalesReport>>(result);
             }
             catch(Exception ex)
             {
-                return OutputDtoConverter.SetFailed<SalesReport>(ex.Message,null);
+                return OutputDtoConverter.SetFailed<List<SalesReport>>(ex.Message,new List<SalesReport>());
             }
             throw new NotImplementedException();
         }

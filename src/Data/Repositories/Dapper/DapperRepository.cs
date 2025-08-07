@@ -18,7 +18,7 @@ namespace POS.Data.Repositories.Dapper
             _connectionString = connectionString;
         }
 
-        public async Task<int> ExecuteScalarAsync(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text)
+        public async Task<int> ExecuteScalarAsync(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.StoredProcedure)
         {
             using (var con = new SqlConnection(_connectionString))
             {
@@ -29,7 +29,7 @@ namespace POS.Data.Repositories.Dapper
             }
         }
 
-        public async Task<int> ExecuteAsync(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text)
+        public async Task<int> ExecuteAsync(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.StoredProcedure)
         {
             using (var con = new SqlConnection(_connectionString))
             {
@@ -39,7 +39,7 @@ namespace POS.Data.Repositories.Dapper
             }
         }
 
-        public async Task<List<T>> QueryAsync<T>(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text) where T : class
+        public async Task<List<T>> QueryAsync<T>(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.StoredProcedure) where T : class
         {
             using (var con = new SqlConnection(_connectionString))
             {
@@ -49,7 +49,7 @@ namespace POS.Data.Repositories.Dapper
             }
         }
 
-        public async Task<T> QueryFirstOrDefaultAsync<T>(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text) where T : class
+        public async Task<T> QueryFirstOrDefaultAsync<T>(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.StoredProcedure) where T : class
         {
             using (var con = new SqlConnection(_connectionString))
             {
@@ -59,7 +59,7 @@ namespace POS.Data.Repositories.Dapper
             }
         }
 
-        public async Task<T> QuerySingleOrDefaultAsync<T>(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.Text) where T : class
+        public async Task<T> QuerySingleOrDefaultAsync<T>(string query, Dictionary<string, object> parameters = null, CommandType commandType = CommandType.StoredProcedure) where T : class
         {
             using (var con = new SqlConnection(_connectionString))
             {

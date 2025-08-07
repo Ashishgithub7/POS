@@ -8,6 +8,6 @@ namespace POS.Business.Services.Reporting.Sales
     public interface ISalesReportService
     {
         OutputDto<List<string>> GetReportType();
-        Task<OutputDto<SalesReport>> GetSalesReport(ReportType reportType);
+        Task<OutputDto<List<SalesReport>>> GetSalesReport(ReportType reportType);
     }
 }
