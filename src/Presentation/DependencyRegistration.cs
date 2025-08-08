@@ -25,6 +25,7 @@ namespace POS.Desktop
             services.AddScoped<PurchaseForm>();
             services.AddScoped<SalesForm>();
             services.AddScoped<SalesReportForm>();
+            services.AddScoped<RevenueReportForm>();
    
         }
     }

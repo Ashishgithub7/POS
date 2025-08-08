@@ -11,6 +11,7 @@ using POS.Data.Repositories.Login;
 using POS.Data.Repositories.POS;
 using POS.Data.Repositories.PurchaseBilling.Purchases;
 using POS.Data.Repositories.PurchaseBilling.Suppliers;
+using POS.Data.Repositories.Report.Revenue;
 using POS.Data.Repositories.Report.Sales;
 using POS.Data.Utilities;
 using System;
@@ -48,6 +49,7 @@ namespace POS.Data
             services.AddScoped<ISalesRepository, SalesRepository>();
             services.AddScoped<IDapperRepository>(x => new DapperRepository(connectionString));
             services.AddScoped<ISalesReportRepository, SalesReportRepository>();
+            services.AddScoped<IRevenueReportRepository, RevenueReportRepository>();
         }
     }
 }
