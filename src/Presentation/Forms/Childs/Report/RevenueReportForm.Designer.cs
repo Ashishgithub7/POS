@@ -55,6 +55,7 @@
             btnExit.TabIndex = 1;
             btnExit.Text = "Exit(F10)";
             btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // lblFilter
             // 
@@ -72,6 +73,7 @@
             cbFilter.Name = "cbFilter";
             cbFilter.Size = new Size(147, 23);
             cbFilter.TabIndex = 3;
+            cbFilter.SelectedIndexChanged += cbFilter_SelectedIndexChanged;
             // 
             // dgvRevenueReport
             // 
@@ -94,6 +96,7 @@
             Controls.Add(lblHdr);
             Name = "RevenueReportForm";
             Text = "SalesReportForm";
+            Load += RevenueReportForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvRevenueReport).EndInit();
             ResumeLayout(false);
             PerformLayout();
