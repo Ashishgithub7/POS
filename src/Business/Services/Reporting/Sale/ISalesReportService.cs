@@ -3,7 +3,7 @@ using POS.Common.Enums;
 using POS.Data.Models;
 
 
-namespace POS.Business.Services.Reporting.Sales
+namespace POS.Business.Services.Reporting.Sale
 {
     public interface ISalesReportService
     {

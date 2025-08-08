@@ -1,9 +1,9 @@
 ﻿using POS.Business.Services.Reporting.Revenue;
-using POS.Business.Services.Reporting.Sales;
+using POS.Business.Services.Reporting.Sale;
 using POS.Common.Constants;
 using POS.Common.Enums;
 using POS.Data.Models;
-using POS.Data.Repositories.Report.Sales;
+using POS.Data.Repositories.Report.Sale;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

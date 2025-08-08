@@ -1,4 +1,4 @@
-﻿using POS.Business.Services.Reporting.Sales;
+﻿using POS.Business.Services.Reporting.Sale;
 using POS.Common.Constants;
 using POS.Common.DTO.PurchaseBilling.Purchase;
 using POS.Common.Enums;

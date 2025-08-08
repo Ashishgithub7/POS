@@ -8,7 +8,7 @@ using POS.Business.Services.POS;
 using POS.Business.Services.PurchaseBilling.Purchases;
 using POS.Business.Services.PurchaseBilling.Suppliers;
 using POS.Business.Services.Reporting.Revenue;
-using POS.Business.Services.Reporting.Sales;
+using POS.Business.Services.Reporting.Sale;
 using POS.Common.DTO.Login;
 using POS.Common.Validators.Login;
 

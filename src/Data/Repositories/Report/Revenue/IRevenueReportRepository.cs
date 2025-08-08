@@ -1,4 +1,4 @@
-﻿using POS.Data.Models;
+﻿using POS.Data.Entities.POS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace POS.Data.Repositories.Report.Revenue
 {
     public interface IRevenueReportRepository
     {
-        Task<RevenueReport> GetRevenueReport(DateTime startDate, DateTime endDate);
+        Task<List<Sales>> GetRevenueReport(DateTime startDate, DateTime endDate);
 
     }
 }

@@ -2,14 +2,14 @@
 using POS.Common.Enums;
 using POS.Common.Utilities;
 using POS.Data.Models;
-using POS.Data.Repositories.Report.Sales;
+using POS.Data.Repositories.Report.Sale;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace POS.Business.Services.Reporting.Sales
+namespace POS.Business.Services.Reporting.Sale
 {
     public class SalesReportService : ISalesReportService
     {

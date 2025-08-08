@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace POS.Data.Repositories.Report.Sales
+namespace POS.Data.Repositories.Report.Sale
 {
     public interface ISalesReportRepository
     {
