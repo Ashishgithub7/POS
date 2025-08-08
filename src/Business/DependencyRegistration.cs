@@ -7,6 +7,7 @@ using POS.Business.Services.Login;
 using POS.Business.Services.POS;
 using POS.Business.Services.PurchaseBilling.Purchases;
 using POS.Business.Services.PurchaseBilling.Suppliers;
+using POS.Business.Services.Reporting.Revenue;
 using POS.Business.Services.Reporting.Sales;
 using POS.Common.DTO.Login;
 using POS.Common.Validators.Login;
@@ -26,6 +27,7 @@ namespace POS.Business
             services.AddValidatorsFromAssemblyContaining<LoginRequestDtoValidator>();
             services.AddScoped<ISalesService, SalesService>();
             services.AddScoped<ISalesReportService, SalesReportService>();
+            services.AddScoped<IRevenueReportService, RevenueReportService>();
            
         }
     }
