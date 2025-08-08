@@ -123,7 +123,7 @@
             // 
             salesToolStripMenuItem.Name = "salesToolStripMenuItem";
             salesToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D6;
-            salesToolStripMenuItem.Size = new Size(180, 22);
+            salesToolStripMenuItem.Size = new Size(140, 22);
             salesToolStripMenuItem.Text = "Sales";
             salesToolStripMenuItem.Click += salesToolStripMenuItem_Click;
             // 
@@ -145,8 +145,10 @@
             // revenueToolStripMenuItem
             // 
             revenueToolStripMenuItem.Name = "revenueToolStripMenuItem";
+            revenueToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D8;
             revenueToolStripMenuItem.Size = new Size(180, 22);
             revenueToolStripMenuItem.Text = "Revenue";
+            revenueToolStripMenuItem.Click += revenueToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 

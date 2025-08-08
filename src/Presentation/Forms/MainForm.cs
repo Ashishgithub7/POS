@@ -74,6 +74,11 @@ namespace POS.Desktop.Forms
             OpenChildForm<SalesReportForm>();
         }
 
+        private void revenueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenChildForm<RevenueReportForm>();
+        }
+
         private void OpenChildForm<T>() where T : Form
         {
             var existingForm = MdiChildren.FirstOrDefault(x => x is T);
