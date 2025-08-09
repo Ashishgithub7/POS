@@ -46,8 +46,9 @@
             // 
             // lblHdr
             // 
+            lblHdr.Anchor = AnchorStyles.Top;
             lblHdr.AutoSize = true;
-            lblHdr.Location = new Point(443, 9);
+            lblHdr.Location = new Point(433, 20);
             lblHdr.Name = "lblHdr";
             lblHdr.Size = new Size(129, 15);
             lblHdr.TabIndex = 0;

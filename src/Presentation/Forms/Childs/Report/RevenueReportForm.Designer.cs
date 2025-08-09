@@ -38,7 +38,7 @@
             // 
             // lblHdr
             // 
-            lblHdr.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblHdr.Anchor = AnchorStyles.Top;
             lblHdr.AutoSize = true;
             lblHdr.Location = new Point(353, 19);
             lblHdr.Name = "lblHdr";

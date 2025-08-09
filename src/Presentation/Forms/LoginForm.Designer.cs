@@ -38,8 +38,9 @@
             // 
             // lblUserName
             // 
+            lblUserName.Anchor = AnchorStyles.Top;
             lblUserName.AutoSize = true;
-            lblUserName.Location = new Point(77, 42);
+            lblUserName.Location = new Point(173, 68);
             lblUserName.Name = "lblUserName";
             lblUserName.Size = new Size(68, 15);
             lblUserName.TabIndex = 0;
@@ -47,7 +48,8 @@
             // 
             // txtUserName
             // 
-            txtUserName.Location = new Point(170, 39);
+            txtUserName.Anchor = AnchorStyles.Top;
+            txtUserName.Location = new Point(247, 65);
             txtUserName.Margin = new Padding(3, 2, 3, 2);
             txtUserName.Name = "txtUserName";
             txtUserName.Size = new Size(259, 23);
@@ -55,8 +57,9 @@
             // 
             // lblPassword
             // 
+            lblPassword.Anchor = AnchorStyles.Top;
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(77, 86);
+            lblPassword.Location = new Point(173, 124);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(63, 15);
             lblPassword.TabIndex = 0;
@@ -64,7 +67,8 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(170, 82);
+            txtPassword.Anchor = AnchorStyles.Top;
+            txtPassword.Location = new Point(247, 124);
             txtPassword.Margin = new Padding(3, 2, 3, 2);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(259, 23);
@@ -72,7 +76,8 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(170, 122);
+            btnLogin.Anchor = AnchorStyles.Top;
+            btnLogin.Location = new Point(247, 188);
             btnLogin.Margin = new Padding(3, 2, 3, 2);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(121, 36);
@@ -83,7 +88,8 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(307, 122);
+            btnCancel.Anchor = AnchorStyles.Top;
+            btnCancel.Location = new Point(385, 188);
             btnCancel.Margin = new Padding(3, 2, 3, 2);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(121, 36);

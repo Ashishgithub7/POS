@@ -50,9 +50,9 @@ namespace POS.Desktop.Forms.Childs.POS
             // 
             // lblHdr
             // 
-            lblHdr.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblHdr.Anchor = AnchorStyles.Top;
             lblHdr.AutoSize = true;
-            lblHdr.Location = new Point(443, 9);
+            lblHdr.Location = new Point(443, 18);
             lblHdr.Name = "lblHdr";
             lblHdr.Size = new Size(107, 15);
             lblHdr.TabIndex = 0;
