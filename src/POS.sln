@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Business", "Business\PO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Desktop", "Presentation\Desktop\POS.Desktop.csproj", "{AC47D57A-5BB6-4483-7594-D65AF1CAF623}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Web", "Presentation\Web\POS.Web\POS.Web.csproj", "{3942C64E-5D5F-45B0-A8FD-B5FAD73A3733}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{AC47D57A-5BB6-4483-7594-D65AF1CAF623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC47D57A-5BB6-4483-7594-D65AF1CAF623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC47D57A-5BB6-4483-7594-D65AF1CAF623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3942C64E-5D5F-45B0-A8FD-B5FAD73A3733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3942C64E-5D5F-45B0-A8FD-B5FAD73A3733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3942C64E-5D5F-45B0-A8FD-B5FAD73A3733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3942C64E-5D5F-45B0-A8FD-B5FAD73A3733}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{9B5D9747-74FC-DBF0-BB63-5E5533333153} = {A7E4573B-72ED-4FDC-B18C-290D70C36A2B}
 		{FECCFAC3-6426-BCA0-0B89-847E01606F0E} = {E0DE6A41-7B44-4547-B35E-3682F8F22D1B}
 		{AC47D57A-5BB6-4483-7594-D65AF1CAF623} = {86BC28A8-4C61-48C3-989B-EEE3A4C3875B}
+		{3942C64E-5D5F-45B0-A8FD-B5FAD73A3733} = {86BC28A8-4C61-48C3-989B-EEE3A4C3875B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0016DB4E-420F-454F-B256-1670883138CD}
