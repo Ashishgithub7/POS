@@ -19,7 +19,8 @@ namespace POS.Web
 
             builder.Services.AddDAL(connectionString);
             builder.Services.AddBAL();
-            
+            builder.Services.AddWebLayer(); // Registering the web layer services
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
