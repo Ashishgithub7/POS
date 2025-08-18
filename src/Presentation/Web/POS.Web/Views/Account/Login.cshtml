@@ -1,0 +1,23 @@
+﻿@model POS.Web.Models.Account.LoginViewModel;
+
+<div class="col-md-4">
+    <section>
+        <form id="account" method="post">
+            <h2>Login to your account</h2>
+            <hr/>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+        </form>
+    </section>
+
+</div>

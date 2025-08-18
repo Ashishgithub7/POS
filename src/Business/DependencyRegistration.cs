@@ -9,6 +9,7 @@ using POS.Business.Services.PurchaseBilling.Purchases;
 using POS.Business.Services.PurchaseBilling.Suppliers;
 using POS.Business.Services.Reporting.Revenue;
 using POS.Business.Services.Reporting.Sale;
+using POS.Business.Services.User;
 using POS.Common.DTO.Login;
 using POS.Common.Validators.Login;
 
@@ -28,6 +29,7 @@ namespace POS.Business
             services.AddScoped<ISalesService, SalesService>();
             services.AddScoped<ISalesReportService, SalesReportService>();
             services.AddScoped<IRevenueReportService, RevenueReportService>();
+            services.AddScoped<IUserService, UserService>();
            
         }
     }

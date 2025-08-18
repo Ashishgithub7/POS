@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+using POS.Business;
+using POS.Data;
+using POS.Data.Entities.Login;
+
 namespace POS.Web
 {
     public class Program
@@ -8,7 +13,13 @@ namespace POS.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<SignInManager<AppUser>>(); // Fixed CS0119 error by registering SignInManager<AppUser> as a scoped service.
 
+            string connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+
+            builder.Services.AddDAL(connectionString);
+            builder.Services.AddBAL();
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

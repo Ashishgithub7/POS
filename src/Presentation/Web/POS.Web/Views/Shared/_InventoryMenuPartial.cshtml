@@ -1,0 +1,20 @@
+﻿<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link text-white" data-bs-toggle="collapse" href="#inventorySubmenu" role="button" aria-expanded="false" aria-controls="inventorySubmenu">
+            Inventory
+        </a>
+        <div class="collapse" id="inventorySubmenu">
+            <ul class="nav flex-column ms-3">
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Inventory" asp-action="Category">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Inventory" asp-action="SubCategoryList">Sub Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Inventory" asp-action="ProductList">Product</a>
+                </li>
+            </ul>
+        </div>
+    </li>
+</ul>
