@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using POS.Business.Services.User;
+using POS.Common.Constants;
 using POS.Common.DTO.User;
 using POS.Common.Enums;
 using POS.Data.Entities.Login;
+using POS.Web.Utilities;
 
 namespace POS.Web.Controllers
 {
+    [Authorize(Policy = Policy.UserCreate)]
     public class AccountController : Controller
     {
         private readonly SignInManager<AppUser> _signInManager;
@@ -19,12 +23,15 @@ namespace POS.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
+
         public async Task<IActionResult> Login(string email, string password, string returnUrl = null)
         {
             var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
@@ -54,13 +61,15 @@ namespace POS.Web.Controllers
 
             if (result.Status == Status.Success)
             {
+                TempData["SuccessMessage"] = result.Message;
                 return RedirectToAction("Index", "Home");
             }
-
+            TempData["WarningMessage"] = MessageAlert.FailureAlert(result); 
             return View();
         }
 
-        //[HttpPost]
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

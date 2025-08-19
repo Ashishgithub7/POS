@@ -15,19 +15,73 @@
         <partial name="_HomeMenuPartial"/>
         @if (User.Identity != null && User.Identity.IsAuthenticated)
         {
-            <partial name="_InventoryMenuPartial"/>
+            @if ((await _authorizationService.AuthorizeAsync(User, Policy.InventoryCreateOrList)).Succeeded)
+            {
+                <partial name="_InventoryMenuPartial"/>
+            }
+            @* @if ((await _authorizationService.AuthorizeAsync(User, Policy.PurchaseEntry)).Succeeded) *@
+            @* { *@
+            @*    <partial name="_PurchasePartial"/> *@
+            @* } *@
+            @* @if ((await _authorizationService.AuthorizeAsync(User, Policy.SalesEntry)).Succeeded) *@
+            @* { *@
+            @*    <partial name="_PosPartial"/> *@
+            @* } *@
         }
+
         <partial name="_LoginPartial"/>
     </div>
 
     <!-- Main Content -->
-    <div class="ms-250" style="margin-left:250px; padding: 1rem;">
-        <!-- Card for content -->
+
+    <div class="ms-250" style="margin-left:250px; padding:1rem;">
+        <!--Card for content-->
         <div class="card shadow-sm">
             <div class="card-body">
-                <main role="main" class="pb-3">
-                    @RenderBody()
-                </main>
+                @if (TempData["SuccessMessage"] != null || TempData["ErrorMessage"] != null || TempData["WarningMessage"] != null)
+                {
+                    <div class="alert-container">
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                @TempData["SuccessMessage"]
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                @TempData["ErrorMessage"]
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+                        @if (TempData["WarningMessage"] != null)
+                        {
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                @TempData["WarningMessage"]
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+                    </div>
+                }
+
+                @* <div class="alert-container"> *@
+                @*     <div id="bs-success" class="alert alert-success alert-dismissible fade show" role="alert"> *@
+                @*         <span id="bs-success-text"></span> *@
+                @*         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+                @*     </div> *@
+                @*     <div id="bs-error" class="alert alert-danger alert-dismissible fade show" role="alert"> *@
+                @*         <span id="bs-error-text"></span> *@
+                @*         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+                @*     </div> *@
+                @*     <div id="bs-warning" class="alert alert-warning alert-dismissible fade show" role="alert"> *@
+                @*         <span id="bs-warning-text"></span> *@
+                @*         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+                @*     </div> *@
+                @* </div> *@
+                 <main role="main" class="pb-3"> 
+                   @RenderBody()
+                 </main> 
             </div>
         </div>
     </div>

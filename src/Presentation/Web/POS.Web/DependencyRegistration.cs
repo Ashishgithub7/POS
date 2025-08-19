@@ -16,7 +16,7 @@ namespace POS.Web
                 options.Cookie.HttpOnly = true; //Prevent JavaScript access to the cookie
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always; //Requires Https for the cookie
                 options.Cookie.SameSite = SameSiteMode.Strict; //Prevent CSRF attacks
-                options.ExpireTimeSpan = TimeSpan.FromSeconds(8); //Set cookie expiration time
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(1); //Set cookie expiration time
                 options.SlidingExpiration = true; //Refresh cookie expiration on each request
             });
         }

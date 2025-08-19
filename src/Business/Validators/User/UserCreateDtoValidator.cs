@@ -24,7 +24,7 @@ namespace POS.Business.Validators.User
                     .MinimumLength(8).WithMessage("Password must be at least 8 characters long.")
                     .MaximumLength(16).WithMessage("Password length must not exceed 16")
                     .Matches(@"[A-Z]+").WithMessage("Password must contain atleast one uppercase letter")
-                    .Matches(@"[a-a]+").WithMessage("Password must contain atleast one lowercase letter")
+                    .Matches(@"[a-z]+").WithMessage("Password must contain atleast one lowercase letter")
                     .Matches(@"[0-9]+").WithMessage("Password must contain atleast one number")
                     .Matches(@"[^a-zA-Z0-9]").WithMessage("Password must contain atleast one special character");
 
