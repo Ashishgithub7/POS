@@ -13,7 +13,10 @@
         <h5 class="text-center p-3">POS</h5>
         <hr class="border-light mx-3"/>
         <partial name="_HomeMenuPartial"/>
-        <partial name="_InventoryMenuPartial"/>
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <partial name="_InventoryMenuPartial"/>
+        }
         <partial name="_LoginPartial"/>
     </div>
 

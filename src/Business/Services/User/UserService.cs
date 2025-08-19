@@ -16,6 +16,13 @@ namespace POS.Business.Services.User
     {
         private readonly IUserRepository _userRepository;
         private readonly IValidator<UserCreateDto> _userCreateValidator;
+
+        public UserService(IUserRepository userRepository, IValidator<UserCreateDto> userCreateValidator)
+        {
+            _userRepository = userRepository;
+            _userCreateValidator = userCreateValidator;
+        }
+
         public async Task<OutputDto<AppUser>> GetByEmailAsync(string email)
         {
             try 
