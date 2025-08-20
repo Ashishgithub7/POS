@@ -15,7 +15,7 @@ namespace POS.Business.Validators.Category
         {
             RuleFor(x => x.Name)
             .NotEmpty()
-            .WithMessage("Name is required.");
+            .WithMessage("Category Name is required.");
 
             RuleFor(x => x.CreatedBy)
             .NotEmpty()

@@ -40,12 +40,9 @@ namespace POS.Business.Services.User
         {
             try
             {
-                var validationResult = _userCreateValidator.Validate(request);
+                var validationResult = await _userCreateValidator.ValidateAsync(request);
                 if (!validationResult.IsValid)
                 {
-                    var error = validationResult.Errors
-                                                .Select(x => x.ErrorMessage)
-                                                .ToList();
                     return OutputDtoConverter.SetFailed(validationResult);
                 }
 

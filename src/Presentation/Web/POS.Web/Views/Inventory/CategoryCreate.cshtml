@@ -1,0 +1,21 @@
+﻿@model POS.Common.DTO.Inventory.Categories.CategoryCreateDto;
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="CategoryCreate" asp-action="CategoryCreate" method="post">
+                <h2>Create a Category</h2>
+                <hr/>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control"/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div>
+                    <button id="CategorySubmit" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

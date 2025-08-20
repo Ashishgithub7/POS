@@ -31,7 +31,6 @@ namespace POS.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-
         public async Task<IActionResult> Login(string email, string password, string returnUrl = null)
         {
             var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
@@ -61,10 +60,10 @@ namespace POS.Web.Controllers
 
             if (result.Status == Status.Success)
             {
-                TempData["SuccessMessage"] = result.Message;
+                TempData[Others.SuccessMessage] = result.Message;
                 return RedirectToAction("Index", "Home");
             }
-            TempData["WarningMessage"] = MessageAlert.FailureAlert(result); 
+            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result); 
             return View();
         }
 

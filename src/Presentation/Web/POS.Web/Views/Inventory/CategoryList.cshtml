@@ -1,0 +1,47 @@
+﻿@model IEnumerable<POS.Common.DTO.Inventory.Categories.CategoryReadDto>;
+
+<h1>CategoryList</h1>
+
+<p>
+    <a asp-action="CategoryCreate" class="btn btn-primary">Create a new Category</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>S.N</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedBy)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+            <th>@Html.DisplayNameFor(model => model.LastModifiedBy)</th>
+            <th>@Html.DisplayNameFor(model => model.LastModifiedDate)</th>
+            @if((await _authorizationService.AuthorizeAsync(User,Policy.InventoryEditOrDelete)).Succeeded)
+            {
+                <th>Action</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.Select((item, index) => new { Index = index, Data = item }))
+        {
+            <tr>
+                <td>@(category.Index + 1)</td>
+                <td>@(category.Data.Name)</td>
+                <td>@(category.Data.CreatedBy)</td>
+                <td>@(category.Data.CreatedDate)</td>
+                <td>@(category.Data.LastModifiedBy)</td>
+                <td>@(category.Data.LastModifiedDate)</td>
+                @if ((await _authorizationService.AuthorizeAsync(User, Policy.InventoryEditOrDelete)).Succeeded)
+                {
+                    <td>
+                        <a asp-action="CategoryEdit" asp-route-id="@category.Data.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a data-category-id="@category.Data.Id" href="#" class="btn btn-danger btn-sm categoryDelete">Delete</a>
+                        @* AJAX *@
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+ @section Scripts{
+    <script src="~/js/inventory/category.js" asp-append-version="true"></script>
+ }

@@ -10,5 +10,8 @@ namespace POS.Common.Constants
     {
         public const string Format = "dd/MM/yy";
         public const string Sn = "Sn";
+        public const string SuccessMessage = "SuccessMessage";
+        public const string ErrorMessage = "ErrorMessage";
+        public const string WarningMessage = "WarningMessage";
     }
 }
