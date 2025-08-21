@@ -87,6 +87,14 @@ namespace POS.Web.Controllers
 
         }
 
+        [HttpDelete("Category/Delete/{id}")]
+        [Authorize(Policy = Policy.InventoryEditOrDelete)]
+        public async Task<IActionResult> CategoryDelete(int id) 
+        {
+            var result = await _categoryService.DeleteAsync(id);
+            return Json(result);
+        }
+
         private int GetUserId()
         {
             int.TryParse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value, out int userId);
