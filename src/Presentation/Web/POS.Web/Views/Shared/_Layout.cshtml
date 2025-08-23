@@ -65,20 +65,21 @@
                     </div>
                 }
 
-                @* <div class="alert-container"> *@
-                @*     <div id="bs-success" class="alert alert-success alert-dismissible fade show" role="alert"> *@
-                @*         <span id="bs-success-text"></span> *@
-                @*         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
-                @*     </div> *@
-                @*     <div id="bs-error" class="alert alert-danger alert-dismissible fade show" role="alert"> *@
-                @*         <span id="bs-error-text"></span> *@
-                @*         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
-                @*     </div> *@
-                @*     <div id="bs-warning" class="alert alert-warning alert-dismissible fade show" role="alert"> *@
-                @*         <span id="bs-warning-text"></span> *@
-                @*         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
-                @*     </div> *@
-                @* </div> *@
+                <div class="alert-container">
+                    <div id="bs-success" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                        <span id="bs-success-text"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div id="bs-error" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                        <span id="bs-error-text"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div id="bs-warning" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+                        <span id="bs-warning-text"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+
                  <main role="main" class="pb-3"> 
                    @RenderBody()
                  </main> 
@@ -94,7 +95,30 @@
     </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-confirm-delete.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        const statusEnum = {
+            Success: 1,
+            Error: 2
+        };
+        function alertMessage(message, status = statusEnum.Fail){
+            let alertSelector;
+            let alertSelectorText;
+            if (status === statusEnum.Success) {
+                alertSelector = "#bs-success";
+                alertSelectorText = "#bs-success-text";
+            } else () {
+                alertSelector = "#bs-error";
+                alertSelectorText = "#bs-error-text";
+            }
+            $(alertSelector).removeClass("d-none");
+            $(alertSelectorText).text(message);
+            setTimeout(function () {
+                $(alertSelector).addClass("d-none");
+            }, 7000); 
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
