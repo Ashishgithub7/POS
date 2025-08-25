@@ -4,16 +4,20 @@ $(function () {
         const $this = $(this);
         $this.bootstrap_confirm_delete({
             heading: 'Confirm Delete',
-            message: " Are you sure you want to delete ?",
-            success: function (e) {
-                const categoryId = $(this).data('category-id');
+            message: "Are you sure you want to delete ?",
+
+            callback: function (e) {
+                debugger;
+                const categoryId = $this.data('category-id');
                 $.ajax({
                     url: `/Inventory/Category/Delete/${categoryId}`,
                     type: 'DELETE',
                     success: function (response) {
-                        if (response.success) {
+                        debugger;
+                        if (response.status === statusEnum.Success) {
                             $('#bootstrap-confirm-dialog').modal('hide');
-                            alertMessage(response.message, statusEnum.success);
+                            alertMessage(response.message, statusEnum.Success);
+                            location.href = '/Inventory/Category/List';
                         } else {
                             $('#bootstrap-confirm-dialog').modal('hide');
                             alertMessage(response.errors.join('\r\n'));
