@@ -1,0 +1,49 @@
+﻿@model IEnumerable<POS.Common.DTO.Inventory.SubCategories.SubCategoryReadDto>;
+
+<h1>Sub-Category List</h1>
+
+<p>
+    <a asp-action="SubCategoryCreate" class="btn btn-primary">Create a new Sub-Category</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>S.N</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedBy)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+            <th>@Html.DisplayNameFor(model => model.LastModifiedBy)</th>
+            <th>@Html.DisplayNameFor(model => model.LastModifiedDate)</th>
+            @if ((await _authorizationService.AuthorizeAsync(User, Policy.InventoryEditOrDelete)).Succeeded)
+            {
+                <th>Action</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subCategory in Model.Select((item, index) => new { Index = index, Data = item }))
+        {
+            <tr>
+                <td>@(subCategory.Index + 1)</td>
+                <td>@(subCategory.Data.Name)</td>
+                <td>@(subCategory.Data.CategoryName)</td>
+                <td>@(subCategory.Data.CreatedBy)</td>
+                <td>@(subCategory.Data.CreatedDate)</td>
+                <td>@(subCategory.Data.LastModifiedBy)</td>
+                <td>@(subCategory.Data.LastModifiedDate)</td>
+                @if ((await _authorizationService.AuthorizeAsync(User, Policy.InventoryEditOrDelete)).Succeeded)
+                {
+                    <td>
+                        <a asp-action="SubCategoryEdit" asp-route-id="@subCategory.Data.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a data-sub-category-id="@subCategory.Data.Id" data-name="@subCategory.Data.Name" href="#" class="btn btn-danger btn-sm subCategoryDelete">Delete</a>
+                        @* AJAX *@
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script src="~/js/Inventory/SubCategory.js" asp-append-version="true"></script>
+ }

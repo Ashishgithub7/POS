@@ -87,6 +87,12 @@
         </div>
     </div>
 
+    <script>
+        setTimeout(function () {
+            var alert = bootstrap.Alert.getOrCreateInstance(document.getElementById('autoCloseAlert'));
+            alert.close();
+        }, 3000); // 3 seconds
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap-confirm-delete.js"></script>

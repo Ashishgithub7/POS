@@ -36,6 +36,7 @@ namespace POS.Business.Services.Inventory.SubCategories
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    CategoryId = x.CategoryId,
                     CategoryName = x.Category.Name,
                     CreatedBy = x.CreatedByUser.UserName,
                     CreatedDate = x.CreatedDate.FormatDate(),
@@ -89,6 +90,7 @@ namespace POS.Business.Services.Inventory.SubCategories
                                  Id = x.Id,
                                  Name = x.Name,
                                  CategoryName = x.Category.Name,
+                                 CategoryId = x.CategoryId,
                                  CreatedBy = x.CreatedByUser.UserName,
                                  CreatedDate = x.CreatedDate.FormatDate(),
                                  LastModifiedBy = x.UpdatedByUser?.UserName,

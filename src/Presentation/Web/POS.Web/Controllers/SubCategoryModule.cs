@@ -6,30 +6,32 @@ using POS.Web.Utilities;
 using POS.Common.DTO.Inventory.Categories;
 using POS.Business.Services.Inventory.SubCategories;
 using POS.Common.DTO.Inventory.SubCategories;
+using System.Threading.Tasks;
 
 namespace POS.Web.Controllers
 {
     public partial class InventoryController
     {
-        private readonly ISubCategoryService _subCategoryService;
-
-        public InventoryController(ISubCategoryService subCategoryService)
-        {
-            _subCategoryService = subCategoryService;
-        }
 
         [HttpGet("SubCategory/List")]
         [Authorize(Policy = Policy.InventoryCreateOrList)]
         public async Task<IActionResult> SubCategoryList()
         {
             var result = await _subCategoryService.GetAllAsync();
-            return View(result.Data);
+            var subCategories = result.Data;
+            if (result.Status == Status.Failed) 
+            {
+                TempData[Others.ErrorMessage] = result.Error;
+                //return View(new List<SubCategoryReadDto>());
+            }
+            return View(subCategories);
         }
 
         [HttpGet("SubCategory/Create")]
         [Authorize(Policy = Policy.InventoryCreateOrList)]
-        public IActionResult SubCategoryCreate()
+        public async Task<IActionResult> SubCategoryCreate()
         {
+            await LoadCategoriesToViewBag();
             return View();
         }
 
@@ -37,6 +39,7 @@ namespace POS.Web.Controllers
         [Authorize(Policy = Policy.InventoryCreateOrList)]
         public async Task<IActionResult> SubCategoryCreate(SubCategoryCreateDto request)
         {
+            await LoadCategoriesToViewBag();
             request.CreatedBy = GetUserId();
             var result = await _subCategoryService.SaveAsync(request);
             if (result.Status == Status.Success)
@@ -54,12 +57,14 @@ namespace POS.Web.Controllers
         [Authorize(Policy = Policy.InventoryEditOrDelete)]
         public async Task<IActionResult> SubCategoryEdit(int id)
         {
+            await LoadCategoriesToViewBag();
             var model = new SubCategoryUpdateDto();
             var result = await _subCategoryService.GetByIdAsync(id);
 
             if (result.Status == Status.Success)
             {
                 model.Id = result.Data.Id;
+                model.CategoryId = result.Data.CategoryId;
                 model.Name = result.Data.Name;
                 return View(model);
             }
