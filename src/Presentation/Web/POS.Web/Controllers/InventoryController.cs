@@ -47,7 +47,7 @@ namespace POS.Web.Controllers
                 return RedirectToAction("CategoryList");
             }
 
-            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result);
+            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result, this.ModelState);
             return View(request);
 
         }
@@ -66,7 +66,7 @@ namespace POS.Web.Controllers
                 return View(model);
             }
 
-            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result);
+            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result, this.ModelState);
             return View(model);
         }
 
@@ -82,7 +82,7 @@ namespace POS.Web.Controllers
                 return RedirectToAction("CategoryList");
             }
 
-            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result);
+            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result, this.ModelState);
             return View(request);
 
         }

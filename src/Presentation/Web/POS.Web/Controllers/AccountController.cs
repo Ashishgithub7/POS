@@ -63,7 +63,7 @@ namespace POS.Web.Controllers
                 TempData[Others.SuccessMessage] = result.Message;
                 return RedirectToAction("Index", "Home");
             }
-            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result); 
+            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result,this.ModelState); 
             return View();
         }
 

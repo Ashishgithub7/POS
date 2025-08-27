@@ -1,4 +1,5 @@
-﻿using POS.Common.Constants;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using POS.Common.Constants;
 using POS.Common.DTO.Common;
 
 namespace POS.Web.Utilities
@@ -10,17 +11,12 @@ namespace POS.Web.Utilities
             return error;
         }
 
-        public static string FailureAlert(OutputDto result)
+        public static string FailureAlert(OutputDto result, ModelStateDictionary modelState)
         {
             if (result.ValidationResult != null)
             {
-                var errors = result
-                             .ValidationResult
-                             .Errors
-                             .Select(x => x.ErrorMessage)
-                             .ToList();
-                string error = String.Join(Environment.NewLine, errors);
-                return error;
+                result.ValidationResult.AddToModelState(modelState);
+                return null;
             }
 
             return result.Error;
