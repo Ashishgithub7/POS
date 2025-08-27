@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using POS.Business.Services.Inventory.Categories;
-using POS.Common.Constants;
-using POS.Common.DTO.Inventory.Categories;
-using POS.Common.Enums;
-using POS.Web.Utilities;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace POS.Web.Controllers
 {
