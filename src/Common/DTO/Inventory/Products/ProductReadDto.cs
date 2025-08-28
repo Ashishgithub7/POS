@@ -13,6 +13,8 @@ namespace POS.Common.DTO.Inventory.Products
         public  decimal PurchasePrice { get; set; }
         public  decimal SellingPrice { get; set; }
         public int Stock { get; set; }
+        public int CategoryId { get; set; }
+        public int SubCategoryId { get; set; }
         public string CategoryName { get; set; }
         public string SubCategoryName { get; set; }
         public string CreatedDate { get; set; }
