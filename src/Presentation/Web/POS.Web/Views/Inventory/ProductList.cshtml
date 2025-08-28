@@ -1,0 +1,55 @@
+﻿@model IEnumerable<POS.Common.DTO.Inventory.Products.ProductReadDto>;
+
+<h1>Sub-Category List</h1>
+
+<p>
+    <a asp-action="productCreate" class="btn btn-primary">Create a new Sub-Category</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>S.N</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
+            <th>@Html.DisplayNameFor(model => model.SubCategoryName)</th>
+            <th>@Html.DisplayNameFor(model => model.PurchasePrice)</th>
+            <th>@Html.DisplayNameFor(model => model.SellingPrice)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedBy)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+            <th>@Html.DisplayNameFor(model => model.LastModifiedBy)</th>
+            <th>@Html.DisplayNameFor(model => model.LastModifiedDate)</th>
+            @if ((await _authorizationService.AuthorizeAsync(User, Policy.InventoryEditOrDelete)).Succeeded)
+            {
+                <th>Action</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Select((item, index) => new { Index = index, Data = item }))
+        {
+            <tr>
+                <td>@(product.Index + 1)</td>
+                <td>@(product.Data.Name)</td>
+                <td>@(product.Data.CategoryName)</td>
+                <td>@(product.Data.SubCategoryName)</td>
+                <td>@(product.Data.PurchasePrice)</td>
+                <td>@(product.Data.SellingPrice)</td>
+                <td>@(product.Data.CreatedBy)</td>
+                <td>@(product.Data.CreatedDate)</td>
+                <td>@(product.Data.LastModifiedBy)</td>
+                <td>@(product.Data.LastModifiedDate)</td>
+                @if ((await _authorizationService.AuthorizeAsync(User, Policy.InventoryEditOrDelete)).Succeeded)
+                {
+                    <td>
+                        <a asp-action="productEdit" asp-route-id="@product.Data.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a data-product-id="@product.Data.Id" data-name="@product.Data.Name" href="#" class="btn btn-danger btn-sm productDelete">Delete</a>
+                        @* AJAX *@
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script src="~/js/Inventory/product.js" asp-append-version="true"></script>
+ }

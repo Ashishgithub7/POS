@@ -1,0 +1,46 @@
+﻿@model POS.Common.DTO.Inventory.Products.ProductCreateDto;
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="ProductCreate" asp-action="ProductCreate" method="post">
+                <h2>Create a Product</h2>
+                <hr />
+
+                <div class="mb-3">
+                    <label asp-for="SubCategoryId" class="control-label">SubCategory</label>
+                    <select asp-for="SubCategoryId" class="form-control" asp-items="ViewBag.SubCategories"></select>
+                    <span asp-validation-for="SubCategoryId" class="text-danger"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="control-label">Category</label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PurchasePrice" class="control-label"></label>
+                    <input asp-for="PurchasePrice" class="form-control" />
+                    <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label asp-for="SellingPrice" class="control-label"></label>
+                    <input asp-for="SellingPrice" class="form-control" />
+                    <span asp-validation-for="SellingPrice" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <button id="ProductSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
