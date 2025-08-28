@@ -45,28 +45,7 @@ namespace POS.Web.Controllers
                 TempData[Others.ErrorMessage] = result.Error;
             }
         }
-        private async Task LoadSubCategoriesToViewBag(int categoryId) 
-        {
-            var result = await _subCategoryService.GetByCategoryIdAsync(categoryId);
-            if (result.Status == Status.Success)
-            {
-                var subCategories = result
-                                .Data
-                                .Select(x =>  new SelectListItem 
-                                {
-                                    Value = x.Id.ToString(),
-                                    Text = x.Name
-                                }).ToList();
-                subCategories.Insert(0, new SelectListItem { Value = "0", Text = "Select a Sub-Category" });
-                ViewBag.SubCategories = subCategories;
-                return;
-            }
-            else
-            {
-                TempData[Others.ErrorMessage] = result.Error;
-            }
-        }
-
+       
         private int GetUserId()
         {
             int.TryParse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value, out int userId);

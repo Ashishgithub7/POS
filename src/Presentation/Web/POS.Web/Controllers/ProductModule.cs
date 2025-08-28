@@ -99,5 +99,20 @@ namespace POS.Web.Controllers
             var result = await _productService.DeleteAsync(id);
             return Json(result);
         }
+
+        [HttpGet("SubCategory/Category/{categoryId}")]
+        [Authorize(Policy = Policy.InventoryCreateOrList)]
+        public async Task<IActionResult> GetSubCategoriesByCategoryId(int categoryId)
+        {
+            var result = await _subCategoryService.GetByCategoryIdAsync(categoryId);
+            var subCategories = result
+                                .Data
+                                .Select(x => new 
+                                {
+                                    Id = x.Id,
+                                    Name = x.Name
+                                }).ToList();
+            return Json(subCategories);
+        }
     }
 }
