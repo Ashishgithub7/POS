@@ -6,14 +6,14 @@ using POS.Web.Utilities;
 
 namespace POS.Web.Controllers.PurchaseBilling
 {
-    public partial class PurchaseController 
+    public partial class PurchaseController
     {
         [HttpGet("Supplier/List")]
         public async Task<IActionResult> SupplierList()
         {
             var result = await _supplierService.GetAllAsync();
             var suppliers = result.Data;
-            if (result.Status == Status.Failed) 
+            if (result.Status == Status.Failed)
             {
                 TempData[Others.ErrorMessage] = result.Error;
             }
@@ -27,7 +27,7 @@ namespace POS.Web.Controllers.PurchaseBilling
         }
 
         [HttpPost("Supplier/Create")]
-        public async Task<IActionResult> SupplierCreate(SupplierCreateDto request) 
+        public async Task<IActionResult> SupplierCreate(SupplierCreateDto request)
         {
             request.CreatedBy = GetUserId();
             var result = await _supplierService.SaveAsync(request);
@@ -40,8 +40,8 @@ namespace POS.Web.Controllers.PurchaseBilling
             return View(request);
         }
 
-        [HttpGet("Supplier/Edit")]
-        public async Task<IActionResult> SupplierEdit(int id) 
+        [HttpGet("Supplier/Edit/{id}")]
+        public async Task<IActionResult> SupplierEdit(int id)
         {
             var result = await _supplierService.GetByIdAsync(id);
             var model = new SupplierUpdateDto();
@@ -60,7 +60,7 @@ namespace POS.Web.Controllers.PurchaseBilling
         }
 
         [HttpPost("Supplier/Edit")]
-        public async Task<IActionResult> SupplierEdit(SupplierUpdateDto request) 
+        public async Task<IActionResult> SupplierEdit(SupplierUpdateDto request)
         {
             request.CreatedBy = GetUserId();
             var result = await _supplierService.UpdateAsync(request);
@@ -73,5 +73,12 @@ namespace POS.Web.Controllers.PurchaseBilling
             TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result, this.ModelState);
             return View(request);
         }
-    }
+
+        [HttpDelete("Supplier/Delete/{id}")]
+        public async Task<IActionResult> SupplierDelete(int id) 
+        {
+            var result = await _supplierService.DeleteAsync(id);
+            return Json(result);
+        }
+    } 
 }
