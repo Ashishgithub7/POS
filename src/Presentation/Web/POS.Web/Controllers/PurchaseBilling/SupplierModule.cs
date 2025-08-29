@@ -39,5 +39,39 @@ namespace POS.Web.Controllers.PurchaseBilling
             TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result, this.ModelState);
             return View(request);
         }
+
+        [HttpGet("Supplier/Edit")]
+        public async Task<IActionResult> SupplierEdit(int id) 
+        {
+            var result = await _supplierService.GetByIdAsync(id);
+            var model = new SupplierUpdateDto();
+            if (result.Status == Status.Success)
+            {
+                model.Id = result.Data.Id;
+                model.Name = result.Data.Name;
+                model.ContactPerson = result.Data.ContactPerson;
+                model.ContactNumber = result.Data.ContactNumber;
+                model.EmailAddress = result.Data.EmailAddress;
+                model.Address = result.Data.Address;
+                return View(model);
+            }
+            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result, this.ModelState);
+            return View(model);
+        }
+
+        [HttpPost("Supplier/Edit")]
+        public async Task<IActionResult> SupplierEdit(SupplierUpdateDto request) 
+        {
+            request.CreatedBy = GetUserId();
+            var result = await _supplierService.UpdateAsync(request);
+            if (result.Status == Status.Success)
+            {
+                TempData[Others.SuccessMessage] = result.Message;
+                return RedirectToAction("SupplierList");
+            }
+
+            TempData[Others.ErrorMessage] = MessageAlert.FailureAlert(result, this.ModelState);
+            return View(request);
+        }
     }
 }
