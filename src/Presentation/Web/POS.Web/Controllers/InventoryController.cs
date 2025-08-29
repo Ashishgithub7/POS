@@ -36,7 +36,7 @@ namespace POS.Web.Controllers
                                     Value = x.Id.ToString(),
                                     Text = x.Name
                                 }).ToList();
-                categories.Insert(0, new SelectListItem { Value = "0", Text = "Select a Category" });
+                categories.Insert(0, new SelectListItem { Value = "0", Text = "Please select a Category" });
                 ViewBag.Categories = categories;
                 return;
             }

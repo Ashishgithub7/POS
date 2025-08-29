@@ -74,6 +74,8 @@ namespace POS.Business.Services.Inventory.Products
                                  Id = x.Id,
                                  Name = x.Name,
                                  SubCategoryName = x.SubCategory.Name,
+                                 SubCategoryId = x.SubCategoryId, 
+                                 CategoryId = x.SubCategory.CategoryId, 
                                  CategoryName = x.SubCategory.Category.Name,
                                  PurchasePrice = x.PurchasePrice,
                                  SellingPrice = x.SellingPrice,

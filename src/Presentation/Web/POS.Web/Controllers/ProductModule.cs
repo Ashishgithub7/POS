@@ -33,7 +33,8 @@ namespace POS.Web.Controllers
         public async Task<IActionResult> ProductCreate()
         {
             await LoadCategoriesToViewBag();
-            return View();
+            ProductCreateDto request = new ProductCreateDto();
+            return View(request);
         }
 
         [HttpPost("Product/Create")]
@@ -68,6 +69,8 @@ namespace POS.Web.Controllers
                 model.CategoryId = result.Data.CategoryId;
                 model.SubCategoryId = result.Data.SubCategoryId;
                 model.Name = result.Data.Name;
+                model.PurchasePrice = result.Data.PurchasePrice;
+                model.SellingPrice = result.Data.SellingPrice;
                 return View(model);
             }
 
