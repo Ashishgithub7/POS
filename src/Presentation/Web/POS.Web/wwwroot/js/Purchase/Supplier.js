@@ -10,14 +10,14 @@ $(function () {
                 debugger;
                 const supplierId = $this.data('supplier-id');
                 $.ajax({
-                    url: `/Inventory/Supplier/Delete/${supplierId}`,
+                    url: `/Purchase/Supplier/Delete/${supplierId}`,
                     type: 'DELETE',
                     success: function (response) {
                         debugger;
                         if (response.status === statusEnum.Success) {
                             $('#bootstrap-confirm-dialog').modal('hide');
                             alertMessage(response.message, statusEnum.Success);
-                            location.href = '/Inventory/Supplier/List';
+                            location.href = '/Purchase/Supplier/List';
                         } else {
                             $('#bootstrap-confirm-dialog').modal('hide');
                             alertMessage(response.errors.join('\r\n'));

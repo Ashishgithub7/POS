@@ -17,7 +17,7 @@ namespace POS.Web.Controllers.PurchaseBilling
             {
                 TempData[Others.ErrorMessage] = result.Error;
             }
-            return View();
+            return View(suppliers);
         }
 
         [HttpGet("Supplier/Create")]
@@ -40,7 +40,7 @@ namespace POS.Web.Controllers.PurchaseBilling
             return View(request);
         }
 
-        [HttpGet("Supplier/Edit/{id}")]
+        [HttpGet("Supplier/Edit")]
         public async Task<IActionResult> SupplierEdit(int id)
         {
             var result = await _supplierService.GetByIdAsync(id);
