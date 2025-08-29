@@ -1,0 +1,57 @@
+﻿@model IEnumerable<POS.Common.DTO.PurchaseBilling.Suppliers.SupplierReadDto>
+
+<h1>Suppliers</h1>
+
+<p>
+    <a asp-action="SupplierCreate" class="btn btn-primary">Create a new Supplier</a>
+</p>
+
+<table class="table">
+    <thead class="table">
+        <tr>
+            <th>S.N</th>
+            <th>Id</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactPerson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            @if ((await _authorizationService.AuthorizeAsync(User, Policy.PurchaseEntry)).Succeeded)
+            {
+                <th>Action</th>
+            })
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var supplier in Model.Select((item, index) => new { Index = index, Data = item }))
+        {
+            <tr>
+                <td>@supplier.Index + 1</td>
+                <td>@supplier.Data.Id</td>
+                <td>@supplier.Data.Name</td>
+                <td>@supplier.Data.ContactPerson</td>
+                <td>@supplier.Data.ContactNumber</td>
+                <td>@supplier.Data.EmailAddress</td>
+                <td>@supplier.Data.Address</td>
+                @if ((await _authorizationService.AuthorizeAsync(User, Policy.PurchaseEntry)).Succeeded)
+                {
+                    <td>
+                        <a asp-action="SupplierEdit" asp-route-id="@supplier.Data.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a data-supplier-id="@supplier.Data.Id" href="#" class="btn btn-danger btn-sm supplierDelete">Delete</a>
+                        @* AJAX *@
+                    </td>
+                })
+            </tr>
+        }
+    </tbody>
+</table>
