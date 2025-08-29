@@ -19,11 +19,11 @@
             {
                 <partial name="_InventoryMenuPartial"/>
             }
-            @* @if ((await _authorizationService.AuthorizeAsync(User, Policy.PurchaseEntry)).Succeeded) *@
-            @* { *@
-            @*    <partial name="_PurchasePartial"/> *@
-            @* } *@
-            @* @if ((await _authorizationService.AuthorizeAsync(User, Policy.SalesEntry)).Succeeded) *@
+            @if ((await _authorizationService.AuthorizeAsync(User, Policy.PurchaseEntry)).Succeeded) 
+            {
+               <partial name="_PurchasePartial"/>
+            }
+            @* @if ((await _authorizationService.AuthorizeAsync(User, Policy.SalesEntry)).Succeeded)
             @* { *@
             @*    <partial name="_PosPartial"/> *@
             @* } *@
