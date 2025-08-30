@@ -39,57 +39,5 @@ namespace POS.Web.Controllers.PurchaseBilling
 
             return Json(result);
         }
-
-        private async Task LoadViewBagsAsync() 
-        {
-            await LoadProductsViewBagAsync();
-            await LoadSuppliersViewBagAsync();
-        }
-
-        private async Task LoadProductsViewBagAsync() 
-        {
-            var result = await _productService.GetAllAsync();
-            if (result.Status == Status.Success) 
-            {
-                var products = result
-                               .Data
-                               .Select(x => new SelectListItem 
-                               {
-                                   Value = x.Id.ToString(),
-                                   Text = x.Name
-                               }).ToList();
-                products.Insert(0, new SelectListItem 
-                                { 
-                                    Value = "0", 
-                                    Text = "Please select a Product" 
-                                });
-                ViewBag.Products = products;
-                return;
-            }
-            TempData[Others.ErrorMessage] = result.Error;
-        }
-
-        private async Task LoadSuppliersViewBagAsync() 
-        {
-            var result = await _supplierService.GetAllAsync();
-            if (result.Status == Status.Success)
-            {
-                var suppliers = result
-                               .Data
-                               .Select(x => new SelectListItem
-                               {
-                                   Value = x.Id.ToString(),
-                                   Text = x.Name
-                               }).ToList();
-                suppliers.Insert(0, new SelectListItem
-                {
-                    Value = "0",
-                    Text = "Please select a Supplier"
-                });
-                ViewBag.Suppliers = suppliers;
-                return;
-            }
-            TempData[Others.ErrorMessage] = result.Error;
-        }
     }
 }

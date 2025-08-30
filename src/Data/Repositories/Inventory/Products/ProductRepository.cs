@@ -151,7 +151,7 @@ namespace POS.Data.Repositories.Inventory.Products
                         }
                         else
                         {
-                            throw new Exception("Stock not enough for one or more product");
+                            throw new Exception("Atleast one product OUT OF STOCK");
                         }
                     }
 

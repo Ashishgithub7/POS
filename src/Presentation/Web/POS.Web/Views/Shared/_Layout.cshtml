@@ -23,10 +23,10 @@
             {
                <partial name="_PurchasePartial"/>
             }
-            @* @if ((await _authorizationService.AuthorizeAsync(User, Policy.SalesEntry)).Succeeded)
-            @* { *@
-            @*    <partial name="_PosPartial"/> *@
-            @* } *@
+            @if ((await _authorizationService.AuthorizeAsync(User, Policy.SalesEntry)).Succeeded)
+            {
+               <partial name="_PosPartial"/>
+            }
         }
 
         <partial name="_LoginPartial"/>

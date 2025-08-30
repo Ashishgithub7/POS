@@ -10,6 +10,7 @@
         <tr>
             <th>S.N</th>
             <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Stock)</th>
             <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
             <th>@Html.DisplayNameFor(model => model.SubCategoryName)</th>
             <th>@Html.DisplayNameFor(model => model.PurchasePrice)</th>
@@ -30,6 +31,7 @@
             <tr>
                 <td>@(product.Index + 1)</td>
                 <td>@(product.Data.Name)</td>
+                <td>@(product.Data.Stock)</td>
                 <td>@(product.Data.CategoryName)</td>
                 <td>@(product.Data.SubCategoryName)</td>
                 <td>@(product.Data.PurchasePrice)</td>
