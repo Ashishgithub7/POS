@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using POS.Business.Services.Inventory.Products;
 using POS.Business.Services.PurchaseBilling.Purchases;
 using POS.Business.Services.PurchaseBilling.Suppliers;
 using System.Security.Claims;
@@ -11,16 +12,13 @@ namespace POS.Web.Controllers.PurchaseBilling
     {
         private readonly ISupplierService _supplierService;
         private readonly IPurchaseService _purchaseService;
+        private readonly IProductService _productService;
 
-        public PurchaseController(ISupplierService supplierService, IPurchaseService purchaseService)
+        public PurchaseController(ISupplierService supplierService, IPurchaseService purchaseService, IProductService productService)
         {
             _supplierService = supplierService;
             _purchaseService = purchaseService;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            _productService = productService;
         }
 
         private int GetUserId()
