@@ -27,7 +27,16 @@ namespace POS.Web.Controllers.PurchaseBilling
         [HttpPost("Save")]
         public async Task<IActionResult> Save(PurchaseCreateDto request) 
         {
+            request.CreatedBy = GetUserId();
             var result = await _purchaseService.SaveAsync(request);
+            if (result.Status == Status.Failed)
+            {
+                var errors = MessageAlert.FailureAlert(result);
+                result.Error = errors;
+            }
+            else
+                TempData[Others.SuccessMessage] = "Purchase saved successfully";
+
             return Json(result);
         }
 

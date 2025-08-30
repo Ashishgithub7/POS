@@ -11,6 +11,21 @@ namespace POS.Web.Utilities
             return error;
         }
 
+        public static string FailureAlert(OutputDto result)
+        {
+            if (result.ValidationResult != null)
+            {
+                var errors = result
+                             .ValidationResult
+                             .Errors
+                             .Select(x => x.ErrorMessage)
+                             .ToList();
+                return string.Join(Environment.NewLine,errors);
+            }
+
+            return result.Error;
+        }
+        
         public static string FailureAlert(OutputDto result, ModelStateDictionary modelState)
         {
             if (result.ValidationResult != null)

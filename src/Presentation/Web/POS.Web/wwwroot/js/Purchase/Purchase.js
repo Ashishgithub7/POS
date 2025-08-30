@@ -29,12 +29,12 @@
             }
             const product = products.find(x => x.id === productId);
             const unitPrice = product.purchasePrice;
-            const purchase = { productId, productName: product.name, qty: quantity, unitPrice };
+            const purchase = { productId, productName: product.name, quantity, unitPrice };
 
             if (updateProductId > 0) {
                 const existingProduct = purchases.find(x => x.productId === updateProductId);
                 existingProduct.productId = productId;
-                existingProduct.qty = purchase.qty;
+                existingProduct.quantity = purchase.quantity;
                 existingProduct.productName = purchase.productName;
                 existingProduct.unitPrice = purchase.unitPrice;
             }
@@ -59,8 +59,8 @@
                     <td>${i + 1}</td>
                     <td>${element.productName}</td>
                     <td>${element.unitPrice}</td>
-                    <td>${element.qty}</td>
-                    <td>${element.unitPrice * element.qty}</td>
+                    <td>${element.quantity}</td>
+                    <td>${element.unitPrice * element.quantity}</td>
                      <td>
                     <a data-product-id="${element.productId}" class="btn btn-warning btn-sm btnItemEdit">Edit</a>
                     <a data-product-id="${element.productId}" href="#" class="btn btn-danger btn-sm btnItemDelete">Delete</a>
@@ -71,7 +71,7 @@
         $('#ddlProductName').val('0');
         $('#txtQuantity').val('');
         $('#ddlProductName').trigger('focus');
-        const grandTotal = purchases.reduce((n, { qty, unitPrice }) => n + (qty * unitPrice), 0)
+        const grandTotal = purchases.reduce((n, { quantity, unitPrice }) => n + (quantity * unitPrice), 0)
         $('#txtGrandTotal').html(grandTotal);
         updateProductId = 0;
     }
@@ -81,7 +81,7 @@
         const product = purchases.find(x => x.productId === productId);
         if (product) {
             $('#ddlProductName').val(productId);
-            $('#txtQuantity').val(product.qty);
+            $('#txtQuantity').val(product.quantity);
             updateProductId = productId;
         }
     });
@@ -102,6 +102,7 @@
     });
 
     $('#btnPurchaseSave').on('click', function () {
+        debugger;
         const supplierId = parseInt($('#ddlSupplierId').val());
         if (!supplierId || supplierId === 0) {
             $('#supplierIdErrorMsg').removeClass('d-none');

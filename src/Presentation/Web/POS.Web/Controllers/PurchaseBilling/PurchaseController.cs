@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using POS.Business.Services.Inventory.Products;
 using POS.Business.Services.PurchaseBilling.Purchases;
 using POS.Business.Services.PurchaseBilling.Suppliers;
+using POS.Common.Constants;
 using System.Security.Claims;
 
 namespace POS.Web.Controllers.PurchaseBilling
 {
     [Route("[controller]")]
+    [Authorize(Policy = Policy.PurchaseEntry)]
     public partial class PurchaseController : Controller
     {
         private readonly ISupplierService _supplierService;
