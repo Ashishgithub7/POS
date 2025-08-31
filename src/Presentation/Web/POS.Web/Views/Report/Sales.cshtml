@@ -1,0 +1,23 @@
+﻿@model IEnumerable<POS.Data.Models.SalesReport>;
+
+<h1>Sales Report</h1>
+
+<div class="my-3 col-md-4">
+    <label for="reportType" class="control-label mb-1">Report Type</label>
+    <select id="reportType" class="form-control" asp-items="ViewBag.ReportType"></select>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.TotalGrossAmount)</th>
+            <th>@Html.DisplayNameFor(model => model.TotalDiscountAmount)</th>
+            <th>@Html.DisplayNameFor(model => model.TotalDiscountPercentage)</th>
+            <th>@Html.DisplayNameFor(model => model.TotalNetAmount)</th>
+            <th>@Html.DisplayNameFor(model => model.TotalRecords)</th>
+        </tr>
+    </thead>
+    <tbody id="salesReportBody"></tbody>
+</table>
+@section Scripts {
+    <script src="~/js/Report/Sales.js" asp-append-version="true"></script>
+ }
