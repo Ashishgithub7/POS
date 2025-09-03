@@ -26,7 +26,7 @@
 
     function loadReportTable() {
         let html = '';
-        html += `<tr>
+        html = `<tr>
                     <td>${report[0].totalGrossAmount.toLocaleString('en-IN') }</td>
                     <td>${report[0].totalDiscountAmount.toLocaleString('en-IN') }</td>
                     <td>${report[0].totalDiscountPercentage.toLocaleString('en-IN') }</td>
