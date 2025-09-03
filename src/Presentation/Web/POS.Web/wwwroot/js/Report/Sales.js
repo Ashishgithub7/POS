@@ -3,6 +3,12 @@
 
     $('#reportType').on('change', function () {
         let reportType = $(this).val();
+        if (reportType == "0") {
+            $('#salesReportTable').addClass('d-none');
+        }
+        else 
+            $('#salesReportTable').removeClass('d-none');
+
 
         $.ajax({
             url: `/Report/SalesReport`,

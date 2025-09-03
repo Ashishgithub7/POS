@@ -6,7 +6,7 @@
     <label for="reportType" class="control-label mb-1">Report Type</label>
     <select id="reportType" class="form-control" asp-items="ViewBag.ReportType"></select>
 </div>
-<table class="table">
+<table class="table d-none" id="salesReportTable">
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(model => model.TotalGrossAmount)</th>
