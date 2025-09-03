@@ -1,0 +1,41 @@
+﻿@model POS.Data.Models.RevenueReport;
+
+<h1>Revenue Report</h1>
+
+<div class="my-3 col-md-4">
+    <label for="reportType" class="control-label mb-1">Report Type</label>
+    <select id="reportType" class="form-control" asp-items="ViewBag.ReportType"></select>
+</div>
+
+<div class="row d-none" id="reportBody">
+    <div class="col-md-4">
+        <div class="card kpi-card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Total Gross Amount</h5>
+                <h1 class="card-text text-primary" id="gross"></h1>
+                <p class="text-muted reportTypeInfo">For the last month</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card kpi-card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Total Net Amount</h5>
+                <h1 class="card-text text-secondary" id="net"></h1>
+                <p class="text-muted reportTypeInfo">For the last month</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card kpi-card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Total Profit Amount</h5>
+                <h1 class="card-text text-success"id="profit"></h1>
+                <p class="text-muted reportTypeInfo">For the last month</p>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/Report/Revenue.js" asp-append-version="true"></script>
+  }

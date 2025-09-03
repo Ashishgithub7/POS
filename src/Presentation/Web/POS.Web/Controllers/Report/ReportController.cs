@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using POS.Business.Services.Reporting.Revenue;
 using POS.Business.Services.Reporting.Sale;
 using POS.Common.Constants;
 using POS.Common.Enums;
@@ -9,28 +10,17 @@ namespace POS.Web.Controllers.Report
 {
     [Route("[controller]")]
     [Authorize(Policy =Policy.SalesEntry)]
-    public class ReportController : Controller
+    public partial class ReportController : Controller
     {
         private readonly ISalesReportService _salesReportService;
+        private readonly IRevenueReportService _revenueReportService;
 
-        public ReportController(ISalesReportService salesReportService)
+        public ReportController(ISalesReportService salesReportService, IRevenueReportService revenueReportService)
         {
             _salesReportService = salesReportService;
+            _revenueReportService = revenueReportService;
         }
 
-        public IActionResult Sales()
-        {
-            LoadReportTypes();
-            return View();
-        }
-
-        [HttpGet("SalesReport")]
-        public async Task<IActionResult> GetSalesReport(string request) 
-        {
-            var reportType = Enum.Parse<ReportType>(request);
-            var result = await _salesReportService.GetSalesReport(reportType);
-            return Json(result.Data);        
-        }
         private void LoadReportTypes() 
         {
             var result = _salesReportService.GetReportType();
