@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             lblCategoryHdr = new Label();
-            exitBtn = new Button();
             lblName = new Label();
             txtCategoryName = new TextBox();
             btnSave = new Button();
@@ -52,16 +51,6 @@
             lblCategoryHdr.Size = new Size(129, 15);
             lblCategoryHdr.TabIndex = 0;
             lblCategoryHdr.Text = "Category Management";
-            // 
-            // exitBtn
-            // 
-            exitBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            exitBtn.Location = new Point(940, 20);
-            exitBtn.Name = "exitBtn";
-            exitBtn.Size = new Size(75, 23);
-            exitBtn.TabIndex = 1;
-            exitBtn.Text = "Exit";
-            exitBtn.UseVisualStyleBackColor = true;
             // 
             // lblName
             // 
@@ -122,7 +111,7 @@
             // lblSearch
             // 
             lblSearch.AutoSize = true;
-            lblSearch.Location = new Point(581, 120);
+            lblSearch.Location = new Point(707, 115);
             lblSearch.Name = "lblSearch";
             lblSearch.Size = new Size(45, 15);
             lblSearch.TabIndex = 8;
@@ -130,7 +119,7 @@
             // 
             // SearchTxtBox
             // 
-            SearchTxtBox.Location = new Point(632, 117);
+            SearchTxtBox.Location = new Point(758, 112);
             SearchTxtBox.Name = "SearchTxtBox";
             SearchTxtBox.Size = new Size(156, 23);
             SearchTxtBox.TabIndex = 9;
@@ -148,7 +137,7 @@
             // btnExit
             // 
             btnExit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnExit.Location = new Point(839, 12);
+            btnExit.Location = new Point(940, 12);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(75, 23);
             btnExit.TabIndex = 11;
@@ -171,7 +160,6 @@
             Controls.Add(btnSave);
             Controls.Add(txtCategoryName);
             Controls.Add(lblName);
-            Controls.Add(exitBtn);
             Controls.Add(lblCategoryHdr);
             Name = "CategoryForm";
             Text = "CategoryForm";
