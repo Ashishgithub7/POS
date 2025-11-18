@@ -46,7 +46,7 @@ namespace POS.Web.Controllers
             }
         }
        
-        private int GetUserId()
+        private int GetUserId() /* TO GET CURRENT USERS ID */
         {
             int.TryParse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value, out int userId);
             return userId;
